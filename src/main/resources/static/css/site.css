@@ -11,6 +11,9 @@
     2)  Site-Wide Classes
     3)  Site Header
     4)  Site Menu
+
+    10) Dashboard
+    11)
 */
 
 /* <editor-fold desc="(o) RESET"> */
@@ -261,7 +264,158 @@ html,body {
 }
 /* </editor-fold> */
 
+/* <editor-fold desc="(10) DASHBOARD"> */
+.netTitleBar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
 
+    background: black;
+}
+.netTitle {
+    font-size: 20px;
+    font-weight: bold;
+}
+.netId {
+    font-size: 15px;
+    font-style: italic;
+    margin-top: 8px;
+}
+
+.netActionBar {
+    margin-top: 5px;
+}
+
+.netActionBar .center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.netActionBar .netActions {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.netActionBar .row > div {
+    padding: 0;
+}
+
+.netActions li {
+    display: block;
+    background: black;
+    border-top: none;
+    font-size: 12px;
+    margin: 3px;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.netActions li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 12px;
+    color: white;
+    text-decoration: none;
+}
+
+.netActions li a svg {
+    margin-bottom: 8px;
+}
+
+.netTime {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.netTimeLocal {
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.netTimeUTC {
+    font-size: 13px;
+}
+
+.refreshButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px;
+    height: calc(100% - 20px);
+    border: 2px solid #444444;
+}
+
+.refresh {
+    display: flex;
+    flex-grow: 1;
+    background: #222222;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 30px;
+}
+
+.refreshButton select {
+    padding: 8px 0;
+    color: white;
+    background: black;
+    border: none;
+}
+
+.dashBox {
+    border: 2px solid #444444;
+    box-sizing: border-box;
+    margin: 10px;
+}
+
+.dashBoxTitle {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 20px;
+    background: #444444;
+}
+
+.dashBoxTitle .titleActions {
+    display: flex;
+}
+
+.dashBoxTitle .titleActions a {
+    color: white;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.dashBoxContent {
+    padding: 15px;
+}
+
+.dashBox form {
+    display: flex;
+}
+
+.dashBox form input {
+    display: flex;
+    padding: 8px;
+    font-size: 18px;
+    background: #eeeeee;
+    font-family: monospace;
+}
+
+.dashBox form button {
+    display: block;
+}
+/* </editor-fold> */
 
 
 
