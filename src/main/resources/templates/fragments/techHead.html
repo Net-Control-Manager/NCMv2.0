@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="siteTechHead(title)">
+    <!-- Required Meta -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta -->
+    <title th:text="${title}"></title>
+    <meta name="description"
+          content="Net Control Manager is a free resource for the amateur radio and emergency services community to manage radio nets and other EmComm activations.">
+
+    <!-- Favicons & App Icons -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+    <!-- <link rel="manifest" href="/manifest.json"> -->
+    <meta name="theme-color" content="#333333">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/cumoratekgrid.css">
+
+    <script defer src="/js/solid.min.js"></script>
+    <script defer src="/js/fontawesome.min.js"></script>
+</head>
+<body>
+<div class="header" th:fragment="siteHeader">
+    <div class="navbar" id="navbar">
+        <div>
+            <a class="logo">
+                <img src="/img/ncmLogo.png" class="logo" alt="Net Control Manager Logo">
+            </a>
+            <a href="/">Dashboard</a>
+            <a href="/create">Start a Net</a>
+            <a href="/search">Find a Net</a>
+            <a href="/account">My Account</a>
+            <a href="/help">Help</a>
+        </div>
+        <div>
+            <a href="javascript:void(0);" class="icon bars" onclick="showMobileMenu()">
+                <i class="fa fa-bars"></i>
+            </a>
+            <a href="/account" class="icon">
+                <i class="fa fa-circle-user"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function showMobileMenu() {
+            var x = document.getElementById("navbar");
+            if (x.className === "navbar") {
+                x.className += " responsive";
+            } else {
+                x.className = "navbar";
+            }
+        }
+    </script>
+</div>
