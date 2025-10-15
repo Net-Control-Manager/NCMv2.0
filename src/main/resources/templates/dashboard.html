@@ -1,7 +1,7 @@
 <!-- index.html -->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" class="dark">
-<head th:replace="fragments/techHead :: siteTechHead('Net Control Manager')"></head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/techHead :: siteTechHead(${net.getName()})"></head>
 <body>
 <div th:replace="fragments/techHead :: siteHeader"></div>
 
@@ -35,7 +35,7 @@
                     <li><a href="#"><i class="fa fa-2x fa-list"></i><span>Timeline</span></a></li>
                     <li><a href="#"><i class="fa fa-2x fa-map-location-dot"></i><span>Map</span></a></li>
                     <li><a href="#"><i class="fa fa-2x fa-cloud-sun-rain"></i><span>Weather</span></a></li>
-                    <li><a href="#"><i class="fa fa-2x fa-tower-broadcast"></i><span>Frequencies</span></a></li>
+                    <li><a href="#"><i class="fa fa-2x fa-tower-broadcast"></i><span>Net Info</span></a></li>
                 </ul>
             </div>
         </div>

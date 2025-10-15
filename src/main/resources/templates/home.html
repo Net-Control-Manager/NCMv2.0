@@ -1,0 +1,65 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/techHead :: siteTechHead('Welcome')"></head>
+<body>
+<div th:replace="fragments/techHead :: siteHeader"></div>
+
+<div class="homeBanner">
+    <div class="container">
+        <h1>Welcome to Net Control Manager 2.0</h1>
+        <p style="max-width: 850px; margin:10px auto;">
+            Net Control Manager (NCM) is a web-based logging software for amateur radio operations, started by Keith
+            Kaiser (WA0TJT SK),
+            and actively maintained by a team of volunteers from the Kansas City, MO area.
+        </p>
+        <p style="max-width: 850px; margin:10px auto;">
+            For active updates & community information, join our Groups.IO page <a href="https://groups.io/g/NCM/topics"
+                                                                                   target="_blank">HERE</a>!
+        </p>
+    </div>
+</div>
+<br><br>
+<div class="container">
+    <div class="row">
+        <div class="md-25">
+            <div class="homeNavLink">
+                <a href="/create">
+                    <i class="fa fa-plus fa-2x"></i>
+                    <br>
+                    <span>Start a New Net</span>
+                </a>
+            </div>
+        </div>
+        <div class="md-25">
+            <div class="homeNavLink">
+                <a href="/search">
+                    <i class="fa fa-search fa-2x"></i>
+                    <br>
+                    <span>Find a Net by Number</span>
+                </a>
+            </div>
+        </div>
+        <div class="md-25">
+            <div class="homeNavLink">
+                <a href="/help" target="_blank">
+                    <i class="fa fa-person-circle-question fa-2x"></i>
+                    <br>
+                    <span>How to Use NCM</span>
+                </a>
+            </div>
+        </div>
+        <div class="md-25">
+            <div class="homeNavLink">
+                <a href="/signin">
+                    <i class="fa fa-user fa-2x"></i>
+                    <br>
+                    <span>Sign in to NCM</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
