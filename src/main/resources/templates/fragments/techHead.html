@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="siteTechHead(title)">
-    <!-- Required Meta -->
+    <!-- Technical Meta -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,15 +17,23 @@
     <!-- <link rel="manifest" href="/manifest.json"> -->
     <meta name="theme-color" content="#333333">
 
-    <!-- Stylesheets -->
+    <!-- Stylesheets / Local Scripts -->
     <link rel="stylesheet" href="/css/site.css">
     <link rel="stylesheet" href="/css/cumoratekgrid.css">
+    <script defer src="/js/site.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script defer src="/js/bootstrap.min.js"></script>
+
+
+    <!-- Font Awesome -->
     <script defer src="/js/solid.min.js"></script>
     <script defer src="/js/fontawesome.min.js"></script>
-
 
 </head>
 <body>
@@ -60,5 +68,38 @@
                 x.className = "navbar";
             }
         }
+    </script>
+
+    <div th:replace="fragments/welcomeModal :: welcomeModal"></div>
+
+    <script>
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let c of ca) {
+                c = c.trim();
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        //TODO:  Change this to only show if user is not authenticated
+        $(document).ready(function() {
+            welcomeCookie = "welcome";
+
+            if (!getCookie(welcomeCookie) && !getCookie("callsign")) {
+                welcomeDialog = document.getElementById('welcomeModal');
+                welcomeDialog.showModal();
+                setCookie(welcomeCookie, "true", 7);
+            }
+        });
+
+
     </script>
 </div>

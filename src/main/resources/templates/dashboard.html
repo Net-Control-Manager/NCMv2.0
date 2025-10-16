@@ -22,11 +22,11 @@
         <div class="row">
             <div class="xs-100 md-35">
                 <ul class="netActions">
-                    <li><a href="#"><i class="fa fa-2x fa-gear"></i><span>Edit</span></a></li>
-                    <li><a href="#"><i class="fa fa-2x fa-bullhorn"></i><span>Announce</span></a></li>
-                    <li><a href="#"><i class="fa fa-2x fa-users-gear"></i><span>Operators</span></a></li>
-                    <li><a href="#"><i class="fa fa-2x fa-file-zipper"></i><span>Reports</span></a></li>
-                    <li><a href="#"><i class="fa fa-2x fa-circle-xmark"></i><span>Close</span></a></li>
+                    <li><a href="#" onclick="showModal('editNet')"><i class="fa fa-2x fa-gear"></i><span>Edit</span></a></li>
+                    <li><a href="#" onclick="showModal('announce')"><i class="fa fa-2x fa-bullhorn"></i><span>Announce</span></a></li>
+                    <li><a href="#" onclick="showModal('netOperators')"><i class="fa fa-2x fa-users-gear"></i><span>Operators</span></a></li>
+                    <li><a href="#" onclick="showModal('reports')"><i class="fa fa-2x fa-file-zipper"></i><span>Reports</span></a></li>
+                    <li><a href="#" onclick="showModal('closeNet')"><i class="fa fa-2x fa-circle-xmark"></i><span>Close</span></a></li>
                 </ul>
             </div>
             <div class="xs-100 md-30 netTime">
@@ -98,6 +98,8 @@
     <div id="dataPanels">
         <div th:replace="fragments/dashboard/stations :: stations"></div>
     </div>
+
+    <div id="modals"></div>
 </div>
 
 
@@ -105,7 +107,21 @@
 </body>
 
 <script>
+    function showModal(modal) {
+        //TODO:  BUILD THIS URL BASED ON NET #
+        fetch(`/net/10000/loadModal/${modal}`)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('modals').innerHTML = html;
+
+                myDialog = document.getElementById(modal + 'Modal');
+                myDialog.showModal();
+            })
+            .catch(error => console.error('Error loading modal:', error));
+    }
+
     function loadDataPanelFragment(fragment) {
+        //TODO:  BUILD THIS URL BASED ON NET #
         fetch(`/net/10000/loadFragment/${fragment}`)
             .then(response => response.text())
             .then(html => {

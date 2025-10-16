@@ -32,8 +32,6 @@ public class DashboardController {
 
     @GetMapping("/{netId}/loadFragment/{fragment}")
     public String loadFragment(Model model, @PathVariable Integer netId, @PathVariable String fragment) {
-
-
         switch (fragment) {
             case "stations":
             case "timeline":
@@ -47,6 +45,27 @@ public class DashboardController {
                     model.addAttribute("net", null);
 
                 return "fragments/dashboard/" + fragment + " :: " + fragment;
+
+            default:
+                return null;
+        }
+    }
+
+    @GetMapping("/{netId}/loadModal/{modal}")
+    public String loadModal(Model model, @PathVariable Integer netId, @PathVariable String modal) {
+        switch (modal) {
+            case "editNet":
+            case "announce":
+            case "netOperators":
+            case "reports":
+            case "closeNet":
+                if (netId != null) {
+                    model.addAttribute("net", netDao.getNetById(netId));
+                }
+                else
+                    model.addAttribute("net", null);
+
+                return "fragments/dashboard/" + modal + "Modal :: " + modal + "Modal";
 
             default:
                 return null;

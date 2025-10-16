@@ -15,7 +15,7 @@
     9)  Home Page
 
     10) Dashboard
-    11)
+    11) Dashboard - Operators Modal
 */
 
 /* <editor-fold desc="(o) RESET"> */
@@ -145,6 +145,11 @@ q:after {
     content: none;
 }
 
+dialog {
+    border: none !important;
+    outline: none !important;
+}
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -193,12 +198,57 @@ html, body {
     font-family: 'Zalando';
 }
 
-/* </editor-fold> */
-
-/* <editor-fold desc="(2) Site-Wide Classes"> */
 p {
     margin-bottom: 16px;
 }
+
+dialog {
+    width: 700px;
+    max-width: 95vw;
+    padding: 0;
+
+    border: thin solid var(--theme-dark);
+    border-radius: 15px;
+    box-shadow: 3px 3px 2px rgba(51, 51, 51, 0.28);
+}
+
+h3 {
+
+}
+
+/* </editor-fold> */
+
+/* <editor-fold desc="(2) Site-Wide Classes"> */
+dialog > .dialogHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+
+    font-size: 22px;
+    font-weight: bold;
+    border-bottom: thin solid gray;
+}
+
+dialog > .dialogBody {
+    padding: 15px;
+}
+
+dialog .dialogButtons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 15px;
+}
+
+dialog .dialogSectionHead {
+    display: block;
+
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: thin solid lightgray;
+    margin-bottom: 15px;
+}
+
 /* </editor-fold> */
 
 /* <editor-fold desc="(3) Site Header"> */
@@ -283,6 +333,8 @@ p {
         text-align: left;
     }
 }
+
+
 
 /* </editor-fold> */
 
@@ -486,8 +538,82 @@ p {
     display: block;
 }
 
+.closeNetModal {
+    width: 450px;
+    max-width: 95vw;
+    border: 8px solid #651313 !important;
+}
+
+.closeNetModal .dialogBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    text-align: center;
+}
+
+.closeNetModal h2 {
+    font-size: 25px;
+    margin: 15px;
+}
+
+.closeNetModal p {
+    font-size: 15px;
+    color: gray;
+}
+
+.closeNetModal input {
+    width: calc(100% - 60px);
+    padding: 8px;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 300;
+
+}
+
 /* </editor-fold> */
 
+
+/* <editor-fold desc="(11) DASHBOARD - OPERATORS MODAL"> */
+.operatorList {
+    display: flex;
+    flex-direction: column;
+    margin-top: -5px;
+    margin-bottom: 22px;
+}
+
+.operator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 13px;
+
+    background: #f5f5f5;
+    border: thin solid #eaeaea;
+    border-radius: 8px;
+    margin-bottom: 2px;
+}
+
+.operator .stationInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.operator .stationInfo .stations {
+    display: flex;
+    flex-direction: column;
+}
+
+.operator .role {
+    font-size: 13px;
+    font-weight: bold;
+    color: gray;
+}
+
+/* </editor-fold> */
 
 /* <editor-fold desc="(XXX) TEMPLATE"> */
 
