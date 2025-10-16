@@ -1,0 +1,31 @@
+<div th:fragment="timeline">
+    <div class="dashBox">
+        <div class="dashBoxTitle">
+            <span>Net Timeline</span>
+            <ul class="titleActions">
+                <li><a href=""><i class="fa fa-filter"></i></a></li>
+                <li><a href=""><i class="fa fa-table-columns"></i></a></li>
+            </ul>
+        </div>
+        <div class="dashBoxContent">
+            <table id="timeline" class="stripe">
+                <thead>
+                <tr>
+                    <th>Date/Time</th>
+                    <th>Actor</th>
+                    <th>Station Updated</th>
+                    <th>Remarks</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="entry : ${net.getTimelineEntries()}">
+                    <td th:text="${entry.getEntryTime().toString()}"></td>
+                    <td th:text="${entry.getActor().getCallsign().toString()}"></td>
+                    <td th:text="${entry.getStationUpdated().getCallsign().toString()}"></td>
+                    <td th:text="${entry.getRemarks()}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

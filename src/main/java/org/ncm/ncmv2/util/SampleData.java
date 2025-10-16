@@ -1,10 +1,12 @@
 package org.ncm.ncmv2.util;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.ncm.ncmv2.model.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class SampleData {
     public class Nets {
@@ -29,8 +31,31 @@ public class SampleData {
             net.setId(10000);
             net.setName("NCM Development Chat (2025-10-03 @ 13:42 CDT)");
             net.setEntries(entries);
+            net.setTimelineEntries(Timelines.generateRandomTimelineEntries(net.getId()));
 
             return net;
+        }
+    }
+
+    public class Timelines {
+        public static List<NetTimelineEntry> generateRandomTimelineEntries(int netId) {
+            List<NetTimelineEntry> entries = new ArrayList<>();
+            Random random = new Random();
+
+            for (int i = 0; i < 20; i++) {
+                entries.add(
+                        new NetTimelineEntry(
+                                random.nextInt(),
+                                new Date(),
+                                new Station(random.nextInt(), "ACT0R", RandomStringUtils.randomAlphanumeric(6), "the Actor"),
+                                new Station(random.nextInt(), "UP0AT3D", RandomStringUtils.randomAlphanumeric(6), "the Updated"),
+                                RandomStringUtils.randomAlphanumeric(30)
+
+                        )
+                );
+            }
+
+            return entries;
         }
     }
 }

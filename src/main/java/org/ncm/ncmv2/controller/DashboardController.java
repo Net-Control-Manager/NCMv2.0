@@ -1,34 +1,55 @@
 package org.ncm.ncmv2.controller;
 
-import org.ncm.ncmv2.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.ncm.ncmv2.dao.NetDao;
 
-import org.ncm.ncmv2.util.SampleData;
 
 @Controller
 @RequestMapping("/net")
 public class DashboardController {
 
+    @Autowired
+    NetDao netDao;
+
     @GetMapping({"" , "/", "/{netId}"})
     public String dashboard(Model model, @PathVariable(required = false) Integer netId) {
 
-        Net net = SampleData.Nets.BasicNet();
-
-        if (netId == null) {
-            return "redirect:/";
+        if (netId != null) {
+            model.addAttribute("net", netDao.getNetById(netId));
         }
-
-        if (netId == 10000)
-            model.addAttribute(net);
         else
             model.addAttribute("net", null);
 
         model.addAttribute("variable", "This is Net Control Manager Version 2.0!");
 
         return "dashboard";
+    }
+
+    @GetMapping("/{netId}/loadFragment/{fragment}")
+    public String loadFragment(Model model, @PathVariable Integer netId, @PathVariable String fragment) {
+
+
+        switch (fragment) {
+            case "stations":
+            case "timeline":
+            case "map":
+            case "weather":
+            case "netInfo":
+                if (netId != null) {
+                    model.addAttribute("net", netDao.getNetById(netId));
+                }
+                else
+                    model.addAttribute("net", null);
+
+                return "fragments/dashboard/" + fragment + " :: " + fragment;
+
+            default:
+                return null;
+        }
     }
 }

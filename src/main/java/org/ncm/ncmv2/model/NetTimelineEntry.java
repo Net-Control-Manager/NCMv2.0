@@ -5,16 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Date;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Net {
+public class NetTimelineEntry {
     private int id;
-    private String name;
-    private List<NetEntry> entries;
-    private List<NetTimelineEntry> timelineEntries;
-
+    private Date entryTime;
+    private Station actor;
+    private Station stationUpdated;
+    private String remarks;
 }
