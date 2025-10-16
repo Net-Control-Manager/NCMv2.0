@@ -22,11 +22,16 @@
         <div class="row">
             <div class="xs-100 md-35">
                 <ul class="netActions">
-                    <li><a href="#" onclick="showModal('editNet')"><i class="fa fa-2x fa-gear"></i><span>Edit</span></a></li>
-                    <li><a href="#" onclick="showModal('announce')"><i class="fa fa-2x fa-bullhorn"></i><span>Announce</span></a></li>
-                    <li><a href="#" onclick="showModal('netOperators')"><i class="fa fa-2x fa-users-gear"></i><span>Operators</span></a></li>
-                    <li><a href="#" onclick="showModal('reports')"><i class="fa fa-2x fa-file-zipper"></i><span>Reports</span></a></li>
-                    <li><a href="#" onclick="showModal('closeNet')"><i class="fa fa-2x fa-circle-xmark"></i><span>Close</span></a></li>
+                    <li><a href="#" onclick="showModal('editNet')"><i class="fa fa-2x fa-gear"></i><span>Edit</span></a>
+                    </li>
+                    <li><a href="#" onclick="showModal('announce')"><i
+                            class="fa fa-2x fa-bullhorn"></i><span>Announce</span></a></li>
+                    <li><a href="#" onclick="showModal('netOperators')"><i class="fa fa-2x fa-users-gear"></i><span>Operators</span></a>
+                    </li>
+                    <li><a href="#" onclick="showModal('reports')"><i
+                            class="fa fa-2x fa-file-zipper"></i><span>Reports</span></a></li>
+                    <li><a href="#" onclick="showModal('closeNet')"><i
+                            class="fa fa-2x fa-circle-xmark"></i><span>Close</span></a></li>
                 </ul>
             </div>
             <div class="xs-100 md-30 netTime">
@@ -103,7 +108,6 @@
 </div>
 
 
-
 </body>
 
 <script>
@@ -139,6 +143,41 @@
     }
 
     function setupStationTable() {
+        $('#stations').DataTable({
+            pageLength: -1,
+            lengthMenu: [25, 50, 100, {label: 'All', value: -1}],
+            columns: [
+                { data: 'role' },
+                { data: 'mode' },
+                { data: 'status' },
+                { data: 'traffic' },
+                { data: 'callsign' },
+                { data: 'firstName' },
+                { data: 'lastName' },
+                { data: 'timeIn' },
+                { data: 'timeOut' },
+                { data: 'tactical', visible: false },
+                { data: 'phone', visible: false },
+                { data: 'email', visible: false },
+                { data: 'city' },
+                { data: 'county', visible: false },
+                { data: 'state' },
+                { data: 'country', visible: false },
+                { data: 'district', visible: false },
+                { data: 'facility', visible: false },
+                { data: 'team', visible: false },
+                { data: 'grid', visible: false },
+                { data: 'latitude', visible: false },
+                { data: 'longitude', visible: false },
+                { data: 'w3w', visible: false },
+                { data: 'aprsCall', visible: false },
+                { data: 'aprsTT', visible: false },
+                { data: 'credentials', visible: false },
+                { data: 'timeOnDuty', visible: false },
+                { data: 'band', visible: false },
+                { data: 'onSite', visible: false }
+            ]
+        })
         let table = new DataTable('#stations');
     }
 
