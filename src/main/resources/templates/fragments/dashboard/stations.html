@@ -20,26 +20,6 @@
                     <th>Last Name</th>
                     <th>Time IN</th>
                     <th>Time OUT</th>
-                    <th>Tactical</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>City</th>
-                    <th>County</th>
-                    <th>State</th>
-                    <th>Country</th>
-                    <th>District</th>
-                    <th>Facility</th>
-                    <th>Team</th>
-                    <th>Grid</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
-                    <th>W3W</th>
-                    <th>APRS Call</th>
-                    <th>APRS TT#</th>
-                    <th>Credentials</th>
-                    <th>Time On Duty</th>
-                    <th>Band</th>
-                    <th>On Site</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,26 +33,6 @@
                     <td th:text="${entry.getStation().getLastName()}"></td>
                     <td th:text="${entry.getCheckInTime()}"></td>
                     <td th:text="${entry.getCheckOutTime()}"></td>
-                    <td th:text="${entry.getTactical()}"></td>
-                    <td th:text="${entry.getStation().getPhone()}"></td>
-                    <td th:text="${entry.getStation().getEmail()}"></td>
-                    <td th:text="${entry.getCity()}"></td>
-                    <td th:text="${entry.getCounty()}"></td>
-                    <td th:text="${entry.getState()}"></td>
-                    <td th:text="${entry.getCountry()}"></td>
-                    <td th:text="${entry.getDistrict()}"></td>
-                    <td th:text="${entry.getFacility()}"></td>
-                    <td th:text="${entry.getTeam()}"></td>
-                    <td th:text="${entry.getGrid()}"></td>
-                    <td th:text="${entry.getLatitude()}"></td>
-                    <td th:text="${entry.getLongitude()}"></td>
-                    <td th:text="${entry.getW3W()}"></td>
-                    <td th:text="${entry.getAprsCall()}"></td>
-                    <td th:text="${entry.getAprsTT()}"></td>
-                    <td th:text="${entry.getCredentials()}"></td>
-                    <td th:text="${entry.getTimeOnDuty()}"></td>
-                    <td th:text="${entry.getBand()}"></td>
-                    <td th:text="${entry.getOnSite()}"></td>
                 </tr>
                 </tbody>
             </table>
