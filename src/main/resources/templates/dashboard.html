@@ -1,8 +1,300 @@
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/techHead :: siteTechHead('Net Control Manager')"></head>
+<head th:replace="fragments/techHead :: siteTechHead(${net.getName()})"></head>
 <body>
 <div th:replace="fragments/techHead :: siteHeader"></div>
+
+<link rel="stylesheet" href="//cdn.datatables.net/2.3.4/css/dataTables.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css">
+<script src="//cdn.datatables.net/2.3.4/js/dataTables.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<div class="netTitleBar">
+    <span class="netTitle" th:text="${net.getName()}"></span>
+    <span class="netId" th:text="'Net #' + ${net.getId()}"></span>
+</div>
+<div class="container">
+    <div class="netActionBar">
+        <div class="row">
+            <div class="xs-100 md-35">
+                <ul class="netActions">
+                    <li><a href="#" onclick="showModal('editNet')"><i class="fa fa-2x fa-gear"></i><span>Edit</span></a></li>
+                    <li><a href="#" onclick="showModal('announce')"><i class="fa fa-2x fa-bullhorn"></i><span>Announce</span></a></li>
+                    <li><a href="#" onclick="showModal('netOperators')"><i class="fa fa-2x fa-users-gear"></i><span>Operators</span></a></li>
+                    <li><a href="#" onclick="showModal('reports')"><i class="fa fa-2x fa-file-zipper"></i><span>Reports</span></a></li>
+                    <li><a href="#" onclick="showModal('closeNet')"><i class="fa fa-2x fa-circle-xmark"></i><span>Close</span></a></li>
+                </ul>
+            </div>
+            <div class="xs-100 md-30 netTime">
+                <span class="netTimeLocal" id="localTime">--:--:--</span>
+                <span class="netTimeUTC" id="utcTime">----</span>
+            </div>
+            <div class="xs-100 md-35">
+                <ul class="netActions">
+                    <li><a href="#" onclick="loadDataPanelFragment('stations')"><i
+                            class="fa fa-2x fa-walkie-talkie"></i><span>Stations</span></a></li>
+                    <li><a href="#" onclick="loadDataPanelFragment('timeline')"><i class="fa fa-2x fa-list"></i><span>Timeline</span></a>
+                    </li>
+                    <li><a href="#" onclick="loadDataPanelFragment('map')"><i
+                            class="fa fa-2x fa-map-location-dot"></i><span>Map</span></a></li>
+                    <li><a href="#" onclick="loadDataPanelFragment('weather')"><i
+                            class="fa fa-2x fa-cloud-sun-rain"></i><span>Weather</span></a></li>
+                    <li><a href="#" onclick="loadDataPanelFragment('netInfo')"><i
+                            class="fa fa-2x fa-tower-broadcast"></i><span>Net Info</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row" style="display: flex; align-items: stretch;">
+        <div class="sm-60" style="padding: 0;">
+            <div class="dashBox">
+                <div class="dashBoxTitle">
+                    <span>Station Check-In</span>
+                </div>
+                <div class="dashBoxContent">
+                    <form id="stationCheckIn">
+                        <input name="callsign" id="callsign" placeholder="Callsign">
+                        <input name="name" id="name" placeholder="Name">
+                        <input name="traffic" id="traffic" placeholder="Tfc">
+                        <button type="submit">Check In</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="sm-30" style="padding: 0;">
+            <div class="dashBox">
+                <div class="dashBoxTitle">
+                    <span>Command Terminal</span>
+                </div>
+                <div class="dashBoxContent">
+                    <form id="terminal">
+                        <input name="command" id="command" placeholder="Enter Command Here...">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="sm-10" style="padding: 0;">
+            <div class="refreshButton">
+                <a href="" class="refresh" id="refresh" title="Refresh Stations"><i class="fa fa-refresh"></i></a>
+                <select id="intervalSelect">
+                    <option disabled>Refresh Interval</option>
+                    <option value="1" selected>Real Time</option>
+                    <option value="30">30 sec.</option>
+                    <option value="60">60 sec.</option>
+                    <option value="600">10 min.</option>
+                    <option value="0">No Refresh</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div id="dataPanels">
+        <div th:replace="fragments/dashboard/stations :: stations"></div>
+    </div>
+
+    <div id="modals"></div>
+</div>
+
+
+
 </body>
+
+<script>
+    function showModal(modal) {
+        //TODO:  BUILD THIS URL BASED ON NET #
+        fetch(`/net/10000/loadModal/${modal}`)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('modals').innerHTML = html;
+
+                myDialog = document.getElementById(modal + 'Modal');
+                myDialog.showModal();
+            })
+            .catch(error => console.error('Error loading modal:', error));
+    }
+
+    function loadDataPanelFragment(fragment) {
+        //TODO:  BUILD THIS URL BASED ON NET #
+        fetch(`/net/10000/loadFragment/${fragment}`)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('dataPanels').innerHTML = html;
+
+                if (fragment === "stations") {
+                    setupStationTable();
+                } else if (fragment === "timeline") {
+                    setupTimelineTable();
+                } else if (fragment === "map") {
+                    setupMap();
+                }
+            })
+            .catch(error => console.error('Error loading panel:', error));
+    }
+
+    function setupStationTable() {
+        let table = new DataTable('#stations');
+    }
+
+    function setupTimelineTable() {
+        $('#timeline').DataTable({
+            ordering: false,
+            pageLength: -1,
+            lengthMenu: [25, 50, 100, {label: 'All', value: -1}]
+        })
+
+        let table = new DataTable('#timeline');
+    }
+
+    function setupMap() {
+        const map = L.map('map').setView([39.0997, -94.5786], 12); // Kansas City :)
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+    }
+
+    $(document).ready(function () {
+        setupStationTable();
+        setupTimelineTable();
+        // setupMap();
+    })
+
+    $(document).ready(function () {
+// worldtimeapi endpoint template
+        const API_BASE = 'https://worldtimeapi.org/api/timezone/';
+
+// state
+        let baseServerMs = 0; // authoritative server time in ms at refPerf
+        let refPerf = 0;            // performance.now() at the same reference moment
+        let refreshTimer = null;
+        let tickTimer = null;
+
+        // format helpers
+        function pad(n) {
+            return (n < 10 ? '0' : '') + n;
+        }
+
+        function formatTime(d) {
+            return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+        }
+
+        function formatDate(d) {
+            return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+        }
+
+        // fetch server time for a timezone, estimate latency and set baseServerMs & refPerf
+        function fetchServerTime(tz, onDone) {
+            $('#err').hide();
+            $('#tzLabel').text('Fetching time for ' + tz + ' …');
+
+            const url = API_BASE + encodeURIComponent(tz);
+            const rStart = performance.now();
+            $.ajax({
+                url: url,
+                method: 'GET',
+                dataType: 'json',
+                timeout: 8000
+            }).done(function (data, textStatus, jqXHR) {
+                const rEnd = performance.now();
+                // worldtimeapi returns an ISO datetime in "datetime" field, e.g. "2025-10-03T12:34:56.123456+00:00"
+                // fallback: it also returns unixtime (seconds)
+                let serverMs = null;
+                if (data && data.datetime) {
+                    // Date.parse will ignore microseconds beyond ms if present
+                    serverMs = Date.parse(data.datetime);
+                } else if (data && typeof data.unixtime === 'number') {
+                    serverMs = data.unixtime * 1000;
+                } else {
+                    // last resort: try Date header (rare due to CORS)
+                    const dateHeader = jqXHR.getResponseHeader('Date');
+                    if (dateHeader) serverMs = Date.parse(dateHeader);
+                }
+
+                if (!serverMs || isNaN(serverMs)) {
+                    $('#err').text('Failed to parse server time.').show();
+                    if (onDone) onDone(false);
+                    return;
+                }
+
+                // estimate one-way latency ~= (rEnd - rStart)/2
+                const oneWay = (rEnd - rStart) / 2;
+                baseServerMs = serverMs + oneWay;
+                refPerf = rEnd; // performance.now() at which baseServerMs is valid
+                $('#tzLabel').text((data.timezone || tz) + ' — offset: ' + (data.utc_offset || ''));
+                if (onDone) onDone(true);
+            }).fail(function (jqXHR, textStatus, err) {
+                $('#err').text('Time fetch failed: ' + textStatus + (err ? ' — ' + err : '')).show();
+                if (onDone) onDone(false);
+            });
+        }
+
+        // start ticking using baseServerMs and refPerf
+        function startTicking() {
+            if (tickTimer) clearInterval(tickTimer);
+
+            function update() {
+                // compute now = baseServerMs + (performance.now() - refPerf)
+                const nowMs = baseServerMs + (performance.now() - refPerf);
+                const now = new Date(nowMs);
+                $('#localTime').text(formatTime(now));
+                $('#utcTime').text(formatDate(now));
+            }
+
+            update();
+            // update frequently so seconds change smoothly (every 200ms)
+            tickTimer = setInterval(update, 200);
+        }
+
+        // public: fetch and start; also schedule periodic refresh to correct drift
+        function refreshAndRun(tz) {
+            // stop existing refresh
+            if (refreshTimer) {
+                clearInterval(refreshTimer);
+                refreshTimer = null;
+            }
+
+            fetchServerTime("Etc/UTC", function (ok) {
+                if (ok) {
+                    startTicking();
+                    // refresh authoritative server time every 60 seconds
+                    refreshTimer = setInterval(function () {
+                        // re-fetch to correct drift; don't change UI if it fails
+                        fetchServerTime("Etc/UTC", function () { /* ignore */
+                        });
+                    }, 60 * 1000);
+                } else {
+                    // attempt retry in 10 seconds
+                    setTimeout(function () {
+                        fetchServerTime("Etc/UTC", function () {
+                            startTicking();
+                        });
+                    }, 10000);
+                }
+            });
+        }
+
+        // wire up select
+        $(function () {
+            const $sel = $('#tz');
+
+            function runForSelection() {
+                const tz = $sel.val();
+                refreshAndRun(tz);
+            }
+
+            $sel.on('change', runForSelection);
+            // initial run for selected option
+            runForSelection();
+        });
+    });
+</script>
+
 </html>

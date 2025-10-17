@@ -11,6 +11,11 @@
     2)  Site-Wide Classes
     3)  Site Header
     4)  Site Menu
+
+    9)  Home Page
+
+    10) Dashboard
+    11) Dashboard - Operators Modal
 */
 
 /* <editor-fold desc="(o) RESET"> */
@@ -140,6 +145,11 @@ q:after {
     content: none;
 }
 
+dialog {
+    border: none !important;
+    outline: none !important;
+}
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -148,6 +158,7 @@ table {
 b {
     font-weight: bold;
 }
+
 /* </editor-fold> */
 
 
@@ -156,37 +167,93 @@ b {
     font-family: 'Zalando'; /* set name */
     src: url("../fonts/Zalando.woff2"); /* url of the font */
 }
+
 /* </editor-fold> */
 
 /* <editor-fold desc="(ii) VARIABLES"> */
+:root {
+    --theme-white: #fafafa;
+    --theme-light: #ececec;
+    --theme-mid: #e2e2e2;
+    --theme-dark: #333333;
+    --theme-black: #222222;
+}
 
 /* </editor-fold> */
 
 /* ===================================== */
 
 /* <editor-fold desc="(1) Site-Wide Elements"> */
-html,body {
+html, body {
     position: absolute;
-    top:0;
-    right:0;
-    left:0;
-    bottom:0;
-    overflow-x:hidden;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    overflow-x: hidden;
 
-    background-color: #353535;
-    color: white;
+    background-color: var(--theme-white);
+    color: var(--theme-black);
 
     font-family: 'Zalando';
 }
+
+p {
+    margin-bottom: 16px;
+}
+
+dialog {
+    width: 700px;
+    max-width: 95vw;
+    padding: 0;
+
+    border: thin solid var(--theme-dark);
+    border-radius: 15px;
+    box-shadow: 3px 3px 2px rgba(51, 51, 51, 0.28);
+}
+
+h3 {
+
+}
+
 /* </editor-fold> */
 
 /* <editor-fold desc="(2) Site-Wide Classes"> */
+dialog > .dialogHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+
+    font-size: 22px;
+    font-weight: bold;
+    border-bottom: thin solid gray;
+}
+
+dialog > .dialogBody {
+    padding: 15px;
+}
+
+dialog .dialogButtons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 15px;
+}
+
+dialog .dialogSectionHead {
+    display: block;
+
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: thin solid lightgray;
+    margin-bottom: 15px;
+}
 
 /* </editor-fold> */
 
 /* <editor-fold desc="(3) Site Header"> */
 .navbar {
-    background-color: #444444;
+    background-color: var(--theme-dark);
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -215,12 +282,12 @@ html,body {
     text-decoration: none;
     font-size: 15px;
 
-    color: #dddddd;
+    color: var(--theme-light);
 }
 
 .navbar a:hover {
-    background-color: #ddd;
-    color: black;
+    background-color: var(--theme-black);
+    color: var(--theme-white);
 }
 
 .navbar a.logo:hover {
@@ -229,7 +296,7 @@ html,body {
 
 .navbar a.active {
     background-color: #04AA6D;
-    color: white;
+    color: var(--theme-white);
 }
 
 .navbar .icon {
@@ -242,28 +309,314 @@ html,body {
 }
 
 @media screen and (max-width: 600px) {
-    .navbar a:not(:first-child) {display: none;}
+    .navbar a:not(:first-child) {
+        display: none;
+    }
+
     .navbar a.icon {
         display: flex;
     }
 
-    .navbar.responsive {position: relative;}
+    .navbar.responsive {
+        position: relative;
+    }
+
     .navbar.responsive a.icon {
         position: absolute;
         right: 0;
         top: 0;
     }
+
     .navbar.responsive a {
         float: none;
         display: block;
         text-align: left;
     }
 }
+
+
+/* </editor-fold> */
+
+/* <editor-fold desc="(9) Home Page"> */
+.homeBanner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40vh;
+    min-height: 300px;
+
+    background-image: url("/img/homeBG.png");
+    background-attachment: fixed;
+    background-size: cover;
+
+    text-align: center;
+}
+
+.homeBanner h1 {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.homeBanner p {
+    font-size: 15px;
+}
+
+.homeNavLink a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1.5 / 1;
+    padding: 15px;
+    margin: 10px;
+
+    background: var(--theme-light);
+    color: var(--theme-black);
+    text-decoration: none;
+
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+
+}
+
+/* </editor-fold> */
+
+/* <editor-fold desc="(10) DASHBOARD"> */
+.netTitleBar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+
+    background: var(--theme-light);
+}
+
+.netTitle {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.netId {
+    font-size: 15px;
+    font-style: italic;
+    margin-top: 8px;
+}
+
+.netActionBar {
+    margin-top: 5px;
+}
+
+.netActionBar .center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.netActionBar .netActions {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.netActionBar .row > div {
+    padding: 0;
+}
+
+.netActions li {
+    display: block;
+    background: var(--theme-light);
+    font-size: 12px;
+    margin: 3px;
+    text-align: center;
+    line-height: 1.3;
+    border: thin solid var(--theme-mid);
+}
+
+.netActions li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 12px;
+    color: var(--theme-black);
+    text-decoration: none;
+}
+
+.netActions li a svg {
+    margin-bottom: 8px;
+}
+
+.netTime {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.netTimeLocal {
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.netTimeUTC {
+    font-size: 13px;
+}
+
+.refreshButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px;
+    height: calc(100% - 20px);
+    border: 2px solid var(--theme-light);
+}
+
+.refresh {
+    display: flex;
+    flex-grow: 1;
+    background: var(--theme-light);
+    align-items: center;
+    justify-content: center;
+    color: var(--theme-black);
+    font-size: 30px;
+}
+
+.refreshButton select {
+    padding: 8px 0;
+    color: var(--theme-light);
+    background: var(--theme-black);
+    border: none;
+}
+
+.dashBox {
+    border: 2px solid var(--theme-light);
+    box-sizing: border-box;
+    margin: 10px;
+}
+
+.dashBoxTitle {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 20px;
+    background: var(--theme-light);
+    font-weight: bold;
+}
+
+.dashBoxTitle .titleActions {
+    display: flex;
+}
+
+.dashBoxTitle .titleActions a {
+    color: var(--theme-black);
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.dashBoxContent {
+    padding: 15px;
+}
+
+.dashBox form {
+    display: flex;
+}
+
+.dashBox form input {
+    display: flex;
+    padding: 8px;
+    font-size: 18px;
+    background: var(--theme-light);
+    font-family: monospace;
+}
+
+.dashBox form button {
+    display: block;
+}
+
+.closeNetModal {
+    width: 450px;
+    max-width: 95vw;
+    border: 8px solid #651313 !important;
+}
+
+.closeNetModal .dialogBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    text-align: center;
+}
+
+.closeNetModal h2 {
+    font-size: 25px;
+    margin: 15px;
+}
+
+.closeNetModal p {
+    font-size: 15px;
+    color: gray;
+}
+
+.closeNetModal input {
+    width: calc(100% - 60px);
+    padding: 10px;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 300;
+
+    outline: none;
+    border: thin solid gray;
+    border-radius: 8px;
+
+}
+
 /* </editor-fold> */
 
 
+/* <editor-fold desc="(11) DASHBOARD - OPERATORS MODAL"> */
+.operatorList {
+    display: flex;
+    flex-direction: column;
+    margin-top: -5px;
+    margin-bottom: 22px;
+}
 
+.operator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
+    padding: 13px;
+
+    background: #f5f5f5;
+    border: thin solid #eaeaea;
+    border-radius: 8px;
+    margin-bottom: 2px;
+}
+
+.operator .stationInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.operator .stationInfo .stations {
+    display: flex;
+    flex-direction: column;
+}
+
+.operator .role {
+    font-size: 13px;
+    font-weight: bold;
+    color: gray;
+}
+
+/* </editor-fold> */
 
 /* <editor-fold desc="(XXX) TEMPLATE"> */
 

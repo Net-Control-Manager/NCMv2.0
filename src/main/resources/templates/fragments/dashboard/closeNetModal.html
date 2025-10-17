@@ -1,0 +1,15 @@
+<div th:fragment="closeNetModal">
+    <dialog id="closeNetModal" class="modal closeNetModal">
+        <div class="dialogBody">
+            <i class="fa-solid fa-circle-xmark fa-4x" style="color: #651313;"></i>
+            <h2>Close This Net?</h2>
+            <p>Closing this net will prevent changes and station updates.  The net can be reopened at any time.</p>
+            <p>Type your callsign to confirm you want to close this net.</p>
+            <input id="confirmation" placeholder="Type your callsign to close this net" />
+            <div class="dialogButtons">
+                <a href="#" class="btn btn-outline-dark closeModalButton">Cancel</a>
+                <a href="#" class="btn btn-danger">CLOSE NET</a>
+            </div>
+        </div>
+    </dialog>
+</div>
