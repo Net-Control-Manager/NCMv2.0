@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.ncm.ncmv2.dao.NetDao;
 
-
 @Controller
 @RequestMapping("/net")
 public class DashboardController {
@@ -16,13 +15,12 @@ public class DashboardController {
     @Autowired
     NetDao netDao;
 
-    @GetMapping({"" , "/", "/{netId}"})
+    @GetMapping({"", "/", "/{netId}"})
     public String dashboard(Model model, @PathVariable(required = false) Integer netId) {
 
         if (netId != null) {
             model.addAttribute("net", netDao.getNetById(netId));
-        }
-        else
+        } else
             model.addAttribute("net", null);
 
         model.addAttribute("variable", "This is Net Control Manager Version 2.0!");
@@ -40,8 +38,7 @@ public class DashboardController {
             case "netInfo":
                 if (netId != null) {
                     model.addAttribute("net", netDao.getNetById(netId));
-                }
-                else
+                } else
                     model.addAttribute("net", null);
 
                 return "fragments/dashboard/" + fragment + " :: " + fragment;
@@ -61,8 +58,7 @@ public class DashboardController {
             case "closeNet":
                 if (netId != null) {
                     model.addAttribute("net", netDao.getNetById(netId));
-                }
-                else
+                } else
                     model.addAttribute("net", null);
 
                 return "fragments/dashboard/" + modal + "Modal :: " + modal + "Modal";

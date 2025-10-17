@@ -2,7 +2,6 @@ package org.ncm.ncmv2.dao;
 
 import org.ncm.ncmv2.model.Net;
 import org.ncm.ncmv2.util.SampleData;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 @Repository

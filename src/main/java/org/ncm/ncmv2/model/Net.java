@@ -16,5 +16,4 @@ public class Net {
     private String name;
     private List<NetEntry> entries;
     private List<NetTimelineEntry> timelineEntries;
-
 }
