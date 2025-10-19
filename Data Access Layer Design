@@ -1,1 +1,3 @@
+Summary
+This document describes the enterprise architecture for the NCMv2 platform with a focus on the Data Access Layer (DAL) implemented in Java 25 and Spring Boot 3.x. The solution supports high-volume configuration and operational telemetry, multi-tenancy (group scoped with per-net ACL), strict write consistency, event-driven integration, spatial capabilities (PostGIS), and operational excellence (observability, resilience, migrations).
 
