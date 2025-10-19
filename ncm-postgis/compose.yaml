@@ -1,0 +1,22 @@
+name: ncm-postgis
+
+services:
+  db:
+    # Build the local ARM64 image from the Containerfile above
+    build:
+      context: .
+      dockerfile: Containerfile
+    image: localhost/ncm-postgis:16
+    container_name: ncm-postgis
+    restart: always
+    environment:
+      POSTGRES_USER: ncm
+      POSTGRES_PASSWORD: Passw0rd!
+      POSTGRES_DB: ncm
+    ports:
+      - "5432:5432"
+    volumes:
+      - ncm_pgdata:/var/lib/postgresql/data
+
+volumes:
+  ncm_pgdata:

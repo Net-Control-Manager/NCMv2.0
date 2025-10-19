@@ -1,4 +1,4 @@
-package org.ncm.ncmv2.model;
+package org.ncm.ncmv2.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
