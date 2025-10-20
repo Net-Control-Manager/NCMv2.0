@@ -7,6 +7,16 @@
     <groupId>org.ncm</groupId>
     <artifactId>NCMv2</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>ncm-app</module>
+        <module>ncm-dal-jooq</module>
+        <module>ncm-dal-jpa</module>
+        <module>ncm-domain</module>
+        <module>ncm-events-contracts</module>
+        <module>ncm-migrations</module>
+        <module>ncm-test-support</module>
+    </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
