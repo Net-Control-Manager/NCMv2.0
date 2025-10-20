@@ -16,6 +16,7 @@
         <module>ncm-events-contracts</module>
         <module>ncm-migrations</module>
         <module>ncm-test-support</module>
+        <module>ncm-util</module>
     </modules>
 
     <parent>
