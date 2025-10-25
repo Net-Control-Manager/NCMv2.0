@@ -3,6 +3,7 @@ package org.ncm.ncmv2.domain.model.dao;
 
 import org.ncm.ncmv2.domain.model.Net;
 
+import org.ncm.ncmv2.util.SampleData;
 import org.springframework.stereotype.Repository;
 
 @Repository
