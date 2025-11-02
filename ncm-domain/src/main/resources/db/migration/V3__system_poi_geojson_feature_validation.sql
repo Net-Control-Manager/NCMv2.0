@@ -17,5 +17,10 @@ DECLARE feature_type text; geom_json jsonb; BEGIN
   RETURN NEW; END $$;
 DROP TRIGGER IF EXISTS trg_system_poi_feature ON system_poi;
 CREATE TRIGGER trg_system_poi_feature BEFORE INSERT OR UPDATE OF geojson ON system_poi FOR EACH ROW EXECUTE FUNCTION system_poi_apply_feature();
-ALTER TABLE system_poi ADD CONSTRAINT IF NOT EXISTS chk_system_poi_geom_valid CHECK (geom IS NOT NULL AND ST_IsValid(geom));
+
+BEGIN;
+ALTER TABLE system_poi DROP CONSTRAINT IF EXISTS chk_system_poi_geom_valid;
+ALTER TABLE system_poi ADD CONSTRAINT chk_system_poi_geom_valid CHECK (geom IS NOT NULL AND ST_IsValid(geom));
+COMMIT;
+
 CREATE INDEX IF NOT EXISTS idx_system_poi_geom_gist ON system_poi USING GIST (geom);

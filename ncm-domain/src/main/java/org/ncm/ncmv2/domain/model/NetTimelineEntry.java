@@ -1,20 +1,28 @@
 package org.ncm.ncmv2.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
-import java.util.Date;
+import java.time.OffsetDateTime;
 
+@Entity
+@Table
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class NetTimelineEntry {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Date entryTime;
+    @Column(name = "entry_time", columnDefinition = "timestamptz")
+    private OffsetDateTime entryTime;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "actor_id")
     private Station actor;
+    @ManyToOne
+    @JoinColumn(name = "stationUpdated_Id")
     private Station stationUpdated;
     private String remarks;
 }

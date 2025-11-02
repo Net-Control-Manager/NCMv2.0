@@ -1,4 +1,4 @@
-package org.ncm.ncmv2.controller;
+package org.ncm.ncmv2.api.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

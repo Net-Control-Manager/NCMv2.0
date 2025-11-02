@@ -10,11 +10,11 @@ import java.time.OffsetDateTime;
 @Table(name = "net_entry")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString(exclude = {"net", "station"})
+//@ToString(exclude = {"net", "station"})
 public class NetEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

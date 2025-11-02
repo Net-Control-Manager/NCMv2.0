@@ -24,10 +24,10 @@
                 </thead>
                 <tbody>
                 <tr th:each="entry : ${net.getEntries()}">
-                    <td th:text="${entry.getRole().toString()}"></td>
-                    <td th:text="${entry.getMode().toString()}"></td>
-                    <td th:text="${entry.getStatus().toString()}"></td>
-                    <td th:text="${entry.getTraffic().toString()}"></td>
+                    <td th:text="${entry.getEntryRole()}"></td>
+                    <td th:text="${entry.getEntryMode()}"></td>
+                    <td th:text="${entry.getEntryStatus()}"></td>
+                    <td th:text="${entry.getEntryTraffic()}"></td>
                     <td th:text="${entry.getStation().getCallsign()}"></td>
                     <td th:text="${entry.getStation().getFirstName()}"></td>
                     <td th:text="${entry.getStation().getLastName()}"></td>

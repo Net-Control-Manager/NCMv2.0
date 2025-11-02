@@ -1,4 +1,4 @@
-package org.ncm.ncmv2.domain.model.dao;
+package org.ncm.ncmv2.domain.dao;
 
 import org.ncm.ncmv2.domain.model.Net;
 

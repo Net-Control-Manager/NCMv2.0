@@ -1,4 +1,4 @@
-package org.ncm.ncmv2.domain.model.dao;
+package org.ncm.ncmv2.domain.dao;
 
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -8,11 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-@Repository
+@Repository("netDao")
 public class NetDaoImpl implements NetDao {
     @Override
     public Net getNetById(int id) {
@@ -45,7 +44,7 @@ public class NetDaoImpl implements NetDao {
             timelineEntries.add(
                     new NetTimelineEntry(
                             random.nextInt(),
-                            new Date(),
+                            OffsetDateTime.now(),
                             new Station(random.nextInt(), "ACT0R", RandomStringUtils.randomAlphanumeric(6), "the Actor"),
                             new Station(random.nextInt(), "UP0AT3D", RandomStringUtils.randomAlphanumeric(6), "the Updated"),
                             RandomStringUtils.randomAlphanumeric(30)
