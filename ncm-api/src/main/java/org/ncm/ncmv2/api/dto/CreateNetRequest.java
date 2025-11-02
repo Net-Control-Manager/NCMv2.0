@@ -1,0 +1,1 @@
+package org.ncm.ncmv2.api.dto; import jakarta.validation.constraints.*; import java.time.Instant; import java.util.UUID; public record CreateNetRequest(@NotBlank String name, @NotNull UUID netTypeId, @NotNull Instant startTime, Boolean preBuilt) {}

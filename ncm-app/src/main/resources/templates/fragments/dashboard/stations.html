@@ -1,0 +1,41 @@
+<div th:fragment="stations">
+    <div class="dashBox">
+        <div class="dashBoxTitle">
+            <span>Active Stations</span>
+            <ul class="titleActions">
+                <li><a href=""><i class="fa fa-filter"></i></a></li>
+                <li><a href=""><i class="fa fa-table-columns"></i></a></li>
+            </ul>
+        </div>
+        <div class="dashBoxContent">
+            <table id="stations" class="stripe">
+                <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>Mode</th>
+                    <th>Status</th>
+                    <th>Traffic</th>
+                    <th>Callsign</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Time IN</th>
+                    <th>Time OUT</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="entry : ${net.getEntries()}">
+                    <td th:text="${entry.getEntryRole()}"></td>
+                    <td th:text="${entry.getEntryMode()}"></td>
+                    <td th:text="${entry.getEntryStatus()}"></td>
+                    <td th:text="${entry.getEntryTraffic()}"></td>
+                    <td th:text="${entry.getStation().getCallsign()}"></td>
+                    <td th:text="${entry.getStation().getFirstName()}"></td>
+                    <td th:text="${entry.getStation().getLastName()}"></td>
+                    <td th:text="${entry.getCheckInTime()}"></td>
+                    <td th:text="${entry.getCheckOutTime()}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

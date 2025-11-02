@@ -1,0 +1,9 @@
+CREATE EXTENSION IF NOT EXISTS postgis;
+CREATE TABLE IF NOT EXISTS app_user ( id BIGSERIAL PRIMARY KEY, email_address text UNIQUE NOT NULL );
+CREATE TABLE IF NOT EXISTS net_type ( id BIGSERIAL PRIMARY KEY, name text NOT NULL, is_custom boolean NOT NULL DEFAULT false, custom_owner_id bigint REFERENCES app_user(id), is_deleted boolean NOT NULL DEFAULT false );
+CREATE TABLE IF NOT EXISTS station ( id BIGSERIAL PRIMARY KEY, callsign text, grid text, lat_long geography(Point,4326), email text, date_created timestamptz NOT NULL DEFAULT now() );
+CREATE TABLE IF NOT EXISTS net ( id BIGSERIAL PRIMARY KEY, name text NOT NULL, net_type_id bigint REFERENCES net_type(id), net_owner_id bigint REFERENCES app_user(id), start_time timestamptz, close_time timestamptz, is_pre_built boolean NOT NULL DEFAULT false, pre_built_time timestamptz, sub_net_parent_id bigint REFERENCES net(id) );
+CREATE TABLE IF NOT EXISTS net_entry ( id BIGSERIAL PRIMARY KEY, net_id bigint NOT NULL REFERENCES net(id), station_id bigint REFERENCES station(id), check_in_time timestamptz, check_out_time timestamptz, entry_role text, entry_mode text, entry_status text, entry_traffic text, team text, facility text, district text, aprs_call text, aprs_tt text, tactical text, time_on_duty interval );
+CREATE TABLE IF NOT EXISTS net_timeline_entry ( id BIGSERIAL PRIMARY KEY, net_id bigint NOT NULL REFERENCES net(id), actor_station_id bigint REFERENCES station(id), station_updated_id bigint REFERENCES station(id), entry_time timestamptz, remarks text );
+CREATE TABLE IF NOT EXISTS net_acl_entry ( id BIGSERIAL PRIMARY KEY, net_id bigint NOT NULL REFERENCES net(id), station_id bigint NOT NULL REFERENCES station(id), access_level text NOT NULL, CONSTRAINT uq_net_acl UNIQUE (net_id, station_id) );
+CREATE TABLE IF NOT EXISTS system_poi_type ( id BIGSERIAL PRIMARY KEY, poi_type_name varchar(25) NOT NULL, poi_type_image bytea );

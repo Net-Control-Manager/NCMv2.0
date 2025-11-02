@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ncm
+    username: ncm
+    password: Passw0rd!
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+      jdbc:
+        time_zone: UTC
+    show-sql: true
+    properties:
+      hibernate:
+        #        dialect: org.hibernate.spatial.dialect.postgis.PostgisDialect
+        format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+logging:
+  level:
+    org.springframework.web: debug
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
