@@ -12,6 +12,8 @@ spring:
     show-sql: true
     properties:
       hibernate:
+        jdbc:
+          use_streams_for_binary: true
         #        dialect: org.hibernate.spatial.dialect.postgis.PostgisDialect
         format_sql: true
         hbm2ddl:

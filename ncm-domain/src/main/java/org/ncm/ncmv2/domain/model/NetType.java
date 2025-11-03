@@ -13,20 +13,19 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-//@ToString(exclude = "customOwner")
 public class NetType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
+
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private boolean isCustom;
+    private boolean custom = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User customOwner;
 
-    private boolean isDeleted;
+    private boolean isDeleted = false;
 }

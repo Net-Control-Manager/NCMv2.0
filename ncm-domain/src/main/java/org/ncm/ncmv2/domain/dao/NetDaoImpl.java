@@ -74,23 +74,31 @@ public class NetDaoImpl implements NetDao {
     }
 
 
-
-
     // TODO:  THIS IS A TEST FUNCTION FOR UI TESTING
     private Net getSampleNet(Long id) {
         //TODO:  THIS IS SAMPLE DATA FOR UI TESTING
         List<NetEntry> entries = new ArrayList<NetEntry>();
 
+        List<NetTimelineEntry> timelineEntries = new ArrayList<>();
+        Random random = new Random();
+
         for (int i = 0; i < 10; i++) {
-            NetEntry netEntry = new NetEntry();
-            netEntry.setId(Long.valueOf(1000));
-            netEntry.setStation(new Station(Long.valueOf(10000), "KF0JQH", "Kevin", "McMilian"));
-            netEntry.setCheckInTime(OffsetDateTime.now());
-            netEntry.setCheckOutTime(OffsetDateTime.now());
-            netEntry.setEntryRole(EntryRole.PRIMARY);
-            netEntry.setEntryMode(EntryMode.VOICE);
-            netEntry.setEntryStatus(EntryStatus.IN);
-            netEntry.setEntryTraffic(EntryTraffic.TRAFFIC.getAbbrev());
+            NetEntry netEntry = NetEntry.builder()
+                    .id(Long.valueOf(1000))
+                    .station(
+                            Station.builder()
+                                    .id(Long.valueOf(random.nextInt()))
+                                    .callsign("KF0JQH")
+                                    .firstName("Kevin")
+                                    .lastName("McMilian")
+                                    .build())
+                    .checkInTime(OffsetDateTime.now())
+                    .checkOutTime(OffsetDateTime.now())
+                    .entryRole(EntryRole.PRIMARY)
+                    .entryMode(EntryMode.VOICE)
+                    .entryStatus(EntryStatus.IN)
+                    .entryTraffic(EntryTraffic.TRAFFIC.getAbbrev())
+                    .build();
 
             entries.add(netEntry);
         }
@@ -100,20 +108,27 @@ public class NetDaoImpl implements NetDao {
         net.setName("NCM Development Chat (2025-11-02 @ 13:42 CDT)");
         net.setEntries(entries);
 
-        List<NetTimelineEntry> timelineEntries = new ArrayList<>();
-        Random random = new Random();
 
         for (int i = 0; i < 20; i++) {
             timelineEntries.add(
-                    new NetTimelineEntry(
-                            Long.valueOf(random.nextInt()),
-                            net,
-                            OffsetDateTime.now(),
-                            new Station(Long.valueOf(random.nextInt()), "ACT0R", RandomStringUtils.randomAlphanumeric(6), "the Actor"),
-                            new Station(Long.valueOf(random.nextInt()), "UP0AT3D", RandomStringUtils.randomAlphanumeric(6), "the Updated"),
-                            RandomStringUtils.randomAlphanumeric(30)
-
-                    )
+                    NetTimelineEntry.builder()
+                            .id(Long.valueOf(random.nextInt()))
+                            .net(net)
+                            .entryTime(OffsetDateTime.now())
+                            .actor(Station.builder()
+                                    .id(Long.valueOf(random.nextInt()))
+                                    .callsign("ACT0R")
+                                    .firstName(RandomStringUtils.randomAlphanumeric(6))
+                                    .lastName("the Actor")
+                                    .build())
+                            .stationUpdated(Station.builder()
+                                    .id(Long.valueOf(random.nextInt()))
+                                    .callsign("UP0AT3D")
+                                    .firstName(RandomStringUtils.randomAlphanumeric(6))
+                                    .lastName("the Updated")
+                                    .build())
+                            .remarks(RandomStringUtils.randomAlphanumeric(30))
+                            .build()
             );
         }
 

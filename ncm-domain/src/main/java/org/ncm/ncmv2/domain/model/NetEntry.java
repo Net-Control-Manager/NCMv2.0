@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 @Table(name = "net_entry")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -20,36 +20,46 @@ public class NetEntry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "net_id", nullable = false)
     @ToString.Exclude
     private Net net;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "station_id")
     @ToString.Exclude
     private Station station;
-    @Column(name = "check_in_time", columnDefinition = "timestamptz")
+
+    @Column(name = "check_in_time", columnDefinition = "timestamptz", nullable = false)
     private OffsetDateTime checkInTime;
+
     @Column(name = "check_out_time", columnDefinition = "timestamptz")
     private OffsetDateTime checkOutTime;
+
     @Enumerated(EnumType.STRING)
     private EntryRole entryRole;
+
     @Enumerated(EnumType.STRING)
     private EntryMode entryMode;
+
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private EntryStatus entryStatus;
+
     @Enumerated(EnumType.STRING)
     private String entryTraffic;
-
     private String team;
     private String facility;
     private String district;
     private String aprsCall;
-    private String aprsTT;
+    private int aprsTT;
     private String tactical;
+
     @org.hibernate.annotations.Type(io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType.class)
     @Column(name = "time_on_duty", columnDefinition = "interval")
     private Duration timeOnDuty;
+
     private String band;
     private String onSite;
 

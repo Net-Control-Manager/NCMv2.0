@@ -1,8 +1,8 @@
 package org.ncm.ncmv2.domain.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.OffsetDateTime;
 
@@ -36,6 +36,9 @@ public class Station {
     private String phone;
 
     private String credentials;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false, columnDefinition = "timestamptz")
     private OffsetDateTime dateCreated;
 
 }
