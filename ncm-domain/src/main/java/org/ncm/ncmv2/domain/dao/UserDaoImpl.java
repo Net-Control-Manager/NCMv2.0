@@ -1,7 +1,9 @@
 package org.ncm.ncmv2.domain.dao;
 
 import org.ncm.ncmv2.domain.model.User;
+import org.springframework.stereotype.Repository;
 
+@Repository("userDao")
 public class UserDaoImpl implements UserDao {
     @Override
     public User createUser(User user) {

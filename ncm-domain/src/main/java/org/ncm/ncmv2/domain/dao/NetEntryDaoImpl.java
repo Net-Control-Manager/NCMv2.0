@@ -1,10 +1,12 @@
 package org.ncm.ncmv2.domain.dao;
 
 import org.ncm.ncmv2.domain.model.*;
+import org.springframework.stereotype.Repository;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 
+@Repository("netEntryDao")
 public class NetEntryDaoImpl implements NetEntryDao {
     @Override
     public NetEntry createNetEntry(NetEntry netEntry) {

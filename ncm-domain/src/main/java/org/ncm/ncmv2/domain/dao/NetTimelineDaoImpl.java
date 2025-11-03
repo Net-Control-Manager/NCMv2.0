@@ -1,9 +1,11 @@
 package org.ncm.ncmv2.domain.dao;
 
 import org.ncm.ncmv2.domain.model.NetTimelineEntry;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository("netTimelineDao")
 public class NetTimelineDaoImpl implements NetTimelineDao {
     @Override
     public NetTimelineEntry createTimelineEntry(NetTimelineEntry netTimelineEntry) {

@@ -4,9 +4,11 @@ import org.ncm.ncmv2.domain.model.EntryRole;
 import org.ncm.ncmv2.domain.model.NetAclEntry;
 import org.ncm.ncmv2.domain.model.NetAclLevel;
 import org.ncm.ncmv2.domain.model.NetRolePermission;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository("netAclDao")
 public class NetAclDaoImpl implements NetAclDao{
     @Override
     public boolean setNetRolePermissions(Long netId, EntryRole entryRole, NetAclLevel netAclLevel) {

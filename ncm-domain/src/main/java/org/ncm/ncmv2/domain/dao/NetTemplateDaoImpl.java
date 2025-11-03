@@ -2,7 +2,9 @@ package org.ncm.ncmv2.domain.dao;
 
 import org.ncm.ncmv2.domain.model.NetTemplate;
 import org.ncm.ncmv2.domain.model.NetType;
+import org.springframework.stereotype.Repository;
 
+@Repository("netTemplateDao")
 public class NetTemplateDaoImpl implements NetTemplateDao {
     @Override
     public NetTemplate createNetTemplate(NetTemplate netTemplate) {

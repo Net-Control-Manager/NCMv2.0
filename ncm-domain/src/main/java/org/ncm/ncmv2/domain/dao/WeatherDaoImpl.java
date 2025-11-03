@@ -2,9 +2,11 @@ package org.ncm.ncmv2.domain.dao;
 
 import org.ncm.ncmv2.domain.model.LatLong;
 import org.ncm.ncmv2.domain.model.WeatherAlert;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository("weatherDao")
 public class WeatherDaoImpl implements WeatherDao {
     @Override
     public WeatherAlert createWeatherAlert(WeatherAlert weatherAlert) {

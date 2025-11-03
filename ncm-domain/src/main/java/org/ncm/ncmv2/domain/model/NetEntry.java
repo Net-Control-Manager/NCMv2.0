@@ -38,7 +38,9 @@ public class NetEntry {
     private EntryMode entryMode;
     @Enumerated(EnumType.STRING)
     private EntryStatus entryStatus;
+    @Enumerated(EnumType.STRING)
     private String entryTraffic;
+
     private String team;
     private String facility;
     private String district;
@@ -48,4 +50,19 @@ public class NetEntry {
     @org.hibernate.annotations.Type(io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType.class)
     @Column(name = "time_on_duty", columnDefinition = "interval")
     private Duration timeOnDuty;
+    private String band;
+    private String onSite;
+
+    //TODO: Fix Data Type
+    private String latLong;
+    private String city;
+    private String county;
+    private String state;
+    private int zip;
+    private String country;
+    private String grid;
+    private String w3w;
+
+    private String email;
+    private String phone;
 }

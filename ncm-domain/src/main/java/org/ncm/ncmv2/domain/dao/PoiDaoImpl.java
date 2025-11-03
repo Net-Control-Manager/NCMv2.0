@@ -3,9 +3,11 @@ package org.ncm.ncmv2.domain.dao;
 import org.ncm.ncmv2.domain.model.GroupPOI;
 import org.ncm.ncmv2.domain.model.GroupPOIType;
 import org.ncm.ncmv2.domain.model.NetPOI;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository("poiDao")
 public class PoiDaoImpl implements PoiDao {
     @Override
     public NetPOI createNetPOI(NetPOI netPOI) {

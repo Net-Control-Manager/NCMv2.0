@@ -2,7 +2,9 @@ package org.ncm.ncmv2.domain.dao;
 
 import org.ncm.ncmv2.domain.model.LatLong;
 import org.ncm.ncmv2.domain.model.Station;
+import org.springframework.stereotype.Repository;
 
+@Repository("stationDao")
 public class StationDaoImpl implements StationDao {
     @Override
     public Station getStationById(Long id) {

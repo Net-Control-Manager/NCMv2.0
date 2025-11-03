@@ -4,9 +4,11 @@ import org.ncm.ncmv2.domain.model.Group;
 import org.ncm.ncmv2.domain.model.GroupClosing;
 import org.ncm.ncmv2.domain.model.GroupPreamble;
 import org.ncm.ncmv2.domain.model.GroupType;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository("groupDao")
 public class GroupDaoImpl implements GroupDao {
     @Override
     public Group createGroup(Group group) {
