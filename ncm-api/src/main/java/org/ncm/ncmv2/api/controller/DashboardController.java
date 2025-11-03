@@ -18,8 +18,10 @@ public class DashboardController {
     @GetMapping({"", "/", "/{netId}"})
     public String dashboard(Model model, @PathVariable(required = false) Integer netId) {
 
+        System.out.println(netId);
+
         if (netId != null) {
-            model.addAttribute("net", netDao.getNetById(netId));
+            model.addAttribute("net", netDao.getNetById(Long.valueOf(netId)));
         } else
             model.addAttribute("net", null);
 
@@ -37,7 +39,7 @@ public class DashboardController {
             case "weather":
             case "netInfo":
                 if (netId != null) {
-                    model.addAttribute("net", netDao.getNetById(netId));
+                    model.addAttribute("net", netDao.getNetById(Long.valueOf(netId)));
                 } else
                     model.addAttribute("net", null);
 
@@ -57,7 +59,7 @@ public class DashboardController {
             case "reports":
             case "closeNet":
                 if (netId != null) {
-                    model.addAttribute("net", netDao.getNetById(netId));
+                    model.addAttribute("net", netDao.getNetById(Long.valueOf(netId)));
                 } else
                     model.addAttribute("net", null);
 

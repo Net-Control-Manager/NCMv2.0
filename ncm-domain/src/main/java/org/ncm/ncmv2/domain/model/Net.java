@@ -15,10 +15,11 @@ import java.util.List;
 public class Net {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String name;
     @OneToMany
     private List<NetEntry> entries;
     @OneToMany(fetch =  FetchType.LAZY)
     private List<NetTimelineEntry> timelineEntries;
+    private boolean isPublic;
 }

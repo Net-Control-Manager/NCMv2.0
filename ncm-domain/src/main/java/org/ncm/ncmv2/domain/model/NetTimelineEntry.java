@@ -15,7 +15,10 @@ import java.time.OffsetDateTime;
 public class NetTimelineEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "net_id")
+    private Net net;
     @Column(name = "entry_time", columnDefinition = "timestamptz")
     private OffsetDateTime entryTime;
     @ManyToOne(fetch = FetchType.LAZY)

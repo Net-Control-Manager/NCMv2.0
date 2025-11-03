@@ -14,7 +14,7 @@ import lombok.*;
 public class Station {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String callsign;
     private String firstName;
     private String lastName;
