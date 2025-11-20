@@ -24,13 +24,13 @@ public class WeatherAlert {
     @Column(nullable = false)
     private WeatherAlertType type;
 
-    @Column(columnDefinition = "timestamptz", nullable = false)
+    @Column(name="effective_time", columnDefinition = "timestamptz", nullable = false)
     private OffsetDateTime effectiveTime;
 
-    @Column(columnDefinition = "timestamptz", nullable = false)
+    @Column(name="expiry_time", columnDefinition = "timestamptz", nullable = false)
     private OffsetDateTime expiryTime;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "alertPolygon", columnDefinition = "jsonb", nullable = false)
+    @Column(name = "alert_polygon", columnDefinition = "jsonb", nullable = false)
     private Map<String, Object> alertPolygon;
 }

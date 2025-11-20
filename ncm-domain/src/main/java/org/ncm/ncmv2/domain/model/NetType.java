@@ -25,7 +25,9 @@ public class NetType {
     private boolean custom = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="custom_owner")
     private User customOwner;
 
+    @Column(name="is_deleted")
     private boolean isDeleted = false;
 }

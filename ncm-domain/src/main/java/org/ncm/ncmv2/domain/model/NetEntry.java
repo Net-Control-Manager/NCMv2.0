@@ -38,22 +38,26 @@ public class NetEntry {
     private OffsetDateTime checkOutTime;
 
     @Enumerated(EnumType.STRING)
+    @Column(name="entry_role")
     private EntryRole entryRole;
 
     @Enumerated(EnumType.STRING)
+    @Column(name="entry_mode")
     private EntryMode entryMode;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name="entry_status", nullable = false)
     private EntryStatus entryStatus;
 
     @Enumerated(EnumType.STRING)
-    private String entryTraffic;
+    @Column(name="entry_traffic")
+    private EntryTraffic entryTraffic;
     private String team;
     private String facility;
     private String district;
+
+    @Column(name="aprs_call")
     private String aprsCall;
-    private int aprsTT;
     private String tactical;
 
     @org.hibernate.annotations.Type(io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType.class)
@@ -61,9 +65,12 @@ public class NetEntry {
     private Duration timeOnDuty;
 
     private String band;
+
+    @Column(name="on_site")
     private String onSite;
 
     //TODO: Fix Data Type
+    @Column(name="lat_long")
     private String latLong;
     private String city;
     private String county;

@@ -25,16 +25,17 @@ public class GroupPreamble {
     private String text;
 
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Group owner;
 
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(name="added_by", nullable = false)
     private User addedBy;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false, columnDefinition = "timestamptz")
+    @Column(name="date_added", nullable = false, updatable = false, columnDefinition = "timestamptz")
     private OffsetDateTime dateAdded;
 
+    @Column(name="is_deleted")
     private boolean isDeleted = false;
 }

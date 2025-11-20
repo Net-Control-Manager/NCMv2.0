@@ -16,11 +16,11 @@ public class NetAclEntry {
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Net net;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Station station;
 
     @Enumerated(EnumType.STRING)

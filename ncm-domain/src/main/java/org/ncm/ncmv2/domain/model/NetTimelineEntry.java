@@ -27,11 +27,10 @@ public class NetTimelineEntry {
     private OffsetDateTime entryTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "actor_id")
-    @Column(nullable = false)
+    @JoinColumn(name = "actor_id", nullable = false)
     private Station actor;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stationUpdated_Id")
     private Station stationUpdated;
 

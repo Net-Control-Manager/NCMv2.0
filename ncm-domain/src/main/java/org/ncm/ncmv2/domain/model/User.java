@@ -29,6 +29,7 @@ public class User {
     @OneToOne
     private Station station;
 
+    @Column(name="dark_mode")
     private boolean darkMode = false;
 
     @ElementCollection
@@ -36,9 +37,12 @@ public class User {
     @Column(name="column_pref")
     private List<String> columnPref;
 
+    @Column(name="has_2fa_enabled")
     private boolean has2faEnabled = false;
 
+    @Column(name="is_suspended")
     private boolean isSuspended = false;
+    @Column(name="is_deleted")
     private boolean isDeleted = false;
 
 

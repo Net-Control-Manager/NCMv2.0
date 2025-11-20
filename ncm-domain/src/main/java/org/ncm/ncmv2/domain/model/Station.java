@@ -18,10 +18,14 @@ public class Station {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String callsign;
+
+    @Column(name="first_name")
     private String firstName;
+    @Column(name="last_name")
     private String lastName;
 
     //TODO: Fix this datatype
+    @Column(name="lat_long")
     private String latLong;
     private String city;
     private String county;
@@ -38,7 +42,7 @@ public class Station {
     private String credentials;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false, columnDefinition = "timestamptz")
+    @Column(name="date_created", nullable = false, updatable = false, columnDefinition = "timestamptz")
     private OffsetDateTime dateCreated;
 
 }

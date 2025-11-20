@@ -21,8 +21,8 @@ public class NetPOI {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    @Column(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
     private Net net;
 
     @JdbcTypeCode(SqlTypes.JSON)
@@ -30,12 +30,13 @@ public class NetPOI {
     private Map<String, Object> geojson;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false, columnDefinition = "timestamptz")
+    @Column(name="date_added", nullable = false, updatable = false, columnDefinition = "timestamptz")
     private OffsetDateTime dateAdded;
 
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(name="added_by", nullable = false)
     private User addedBy;
 
+    @Column(name="is_deleted")
     private boolean isDeleted = false;
 }

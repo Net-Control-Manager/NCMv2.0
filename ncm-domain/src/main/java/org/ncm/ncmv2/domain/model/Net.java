@@ -26,27 +26,31 @@ public class Net {
     private List<NetEntry> entries;
 
     @OneToMany(fetch =  FetchType.LAZY)
+    @JoinColumn(name="timeline_entries")
     private List<NetTimelineEntry> timelineEntries;
 
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(name="net_type", nullable = false)
     private NetType netType;
 
     @CreationTimestamp
-    @Column(nullable = false, columnDefinition = "timestamptz")
+    @Column(name="start_time", nullable = false, columnDefinition = "timestamptz")
     private OffsetDateTime startTime;
 
-    @Column(columnDefinition = "timestamptz")
+    @Column(name="end_time", columnDefinition = "timestamptz")
     private OffsetDateTime endTime;
 
+    @Column(name="is_prebuilt")
     private boolean isPreBuilt = false;
 
-    @Column(columnDefinition = "timestamptz")
+    @Column(name="prebuilt_time", columnDefinition = "timestamptz")
     private OffsetDateTime preBuiltTime;
 
     @ManyToOne(fetch =  FetchType.LAZY)
+    @JoinColumn(name="subnet_parent")
     private Net subNetParent;
 
+    @Column(name="is_public")
     private boolean isPublic;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -97,7 +97,7 @@ public class NetDaoImpl implements NetDao {
                     .entryRole(EntryRole.PRIMARY)
                     .entryMode(EntryMode.VOICE)
                     .entryStatus(EntryStatus.IN)
-                    .entryTraffic(EntryTraffic.TRAFFIC.getAbbrev())
+                    .entryTraffic(EntryTraffic.TRAFFIC)
                     .build();
 
             entries.add(netEntry);

@@ -21,26 +21,28 @@ public class NetTemplate {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name="net_name", nullable = false)
     private String netName;
 
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(name="net_type", nullable = false)
     private NetType netType;
 
+    @Column(name="net_frequency")
     private String netFrequency;
 
-    @ManyToOne
-    @Column(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
     private Group owner;
 
-    @ManyToOne
-    @Column(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="added_by", nullable = false)
     private User addedBy;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false, columnDefinition = "timestamptz")
+    @Column(name="created_date", nullable = false, updatable = false, columnDefinition = "timestamptz")
     private OffsetDateTime createdDate;
 
+    @Column(name="is_deleted")
     private boolean isDeleted = false;
 }

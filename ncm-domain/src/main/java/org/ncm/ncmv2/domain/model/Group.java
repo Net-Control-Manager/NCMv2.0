@@ -19,7 +19,7 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(name="name", unique = true, nullable = false)
     private String name;
 
     @Column(nullable = false)
@@ -28,14 +28,21 @@ public class Group {
     @Column(unique = true, nullable = false)
     private String callsign;
 
+    @Column(name="default_frequency")
     private String defaultFrequency;
 
-    @ManyToMany
+    @ManyToMany()
+    @JoinTable(
+            name = "group_managers",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "group_id") }
+    )
     private List<User> groupManagers;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false, columnDefinition = "timestamptz")
+    @Column(name="date_created", nullable = false, updatable = false, columnDefinition = "timestamptz")
     private OffsetDateTime dateCreated;
 
+    @Column(name="is_deleted")
     private boolean isDeleted = false;
 }
