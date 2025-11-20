@@ -17,9 +17,10 @@ public class SystemPOIType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
+
     @Column(name = "poi_type_name", length = 25, nullable = false)
     private String poiTypeName;
-    @Lob
-    @Column(name = "poi_type_image")
+
+    @Column(name = "poi_type_image", columnDefinition = "bytea")
     private byte[] poiTypeImage;
 }

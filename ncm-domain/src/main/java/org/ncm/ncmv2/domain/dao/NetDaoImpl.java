@@ -14,48 +14,127 @@ import java.util.Random;
 @Repository("netDao")
 public class NetDaoImpl implements NetDao {
     @Override
-    public Net getNetById(int id) {
+    public Net createNet(Net net) {
+        return null;
+    }
+
+    @Override
+    public OffsetDateTime closeNet(Long netId) {
+        return null;
+    }
+
+    @Override
+    public OffsetDateTime reopenNet(Long netId) {
+        return null;
+    }
+
+    @Override
+    public Net getNetById(Long id) {
+        return getSampleNet(id); //TODO: THIS IS SAMPLE DATA
+    }
+
+    @Override
+    public List<Net> getNetsByOwnerId(Long ownerId) {
+        return List.of();
+    }
+
+    @Override
+    public List<Net> getNetsByOpenStatus(boolean isOpen) {
+        return List.of();
+    }
+
+    @Override
+    public boolean updateNetName(Long netId, String newName) {
+        return false;
+    }
+
+    @Override
+    public boolean updateNetType(Long netId, NetType newType) {
+        return false;
+    }
+
+    @Override
+    public boolean updatePublicStatus(Long netId, boolean isPublic) {
+        return false;
+    }
+
+    @Override
+    public boolean setAnnouncement(Long netId, String announcement) {
+        return false;
+    }
+
+    @Override
+    public boolean convertToPreBuilt(Long netId, boolean isPreBuilt) {
+        return false;
+    }
+
+    @Override
+    public OffsetDateTime archiveNet(Long netId) {
+        return null;
+    }
+
+
+    // TODO:  THIS IS A TEST FUNCTION FOR UI TESTING
+    private Net getSampleNet(Long id) {
         //TODO:  THIS IS SAMPLE DATA FOR UI TESTING
         List<NetEntry> entries = new ArrayList<NetEntry>();
 
+        List<NetTimelineEntry> timelineEntries = new ArrayList<>();
+        Random random = new Random();
+
         for (int i = 0; i < 10; i++) {
-            NetEntry netEntry = new NetEntry();
-            netEntry.setId(Long.valueOf(1000));
-            netEntry.setStation(new Station(10000, "KF0JQH", "Kevin", "McMilian"));
-            netEntry.setCheckInTime(OffsetDateTime.now());
-            netEntry.setCheckOutTime(OffsetDateTime.now());
-            netEntry.setEntryRole(EntryRole.PRIMARY);
-            netEntry.setEntryMode(EntryMode.VOICE);
-            netEntry.setEntryStatus(EntryStatus.IN);
-            netEntry.setEntryTraffic(EntryTraffic.TRAFFIC.getAbbrev());
+            NetEntry netEntry = NetEntry.builder()
+                    .id(Long.valueOf(1000))
+                    .station(
+                            Station.builder()
+                                    .id(Long.valueOf(random.nextInt()))
+                                    .callsign("KF0JQH")
+                                    .firstName("Kevin")
+                                    .lastName("McMilian")
+                                    .build())
+                    .checkInTime(OffsetDateTime.now())
+                    .checkOutTime(OffsetDateTime.now())
+                    .entryRole(EntryRole.PRIMARY)
+                    .entryMode(EntryMode.VOICE)
+                    .entryStatus(EntryStatus.IN)
+                    .entryTraffic(EntryTraffic.TRAFFIC)
+                    .build();
 
             entries.add(netEntry);
         }
 
         Net net = new Net();
-        net.setId(10000);
-        net.setName("NCM Development Chat (2025-10-03 @ 13:42 CDT)");
+        net.setId(Long.valueOf(10000));
+        net.setName("NCM Development Chat (2025-11-02 @ 13:42 CDT)");
         net.setEntries(entries);
 
-        List<NetTimelineEntry> timelineEntries = new ArrayList<>();
-        Random random = new Random();
 
         for (int i = 0; i < 20; i++) {
             timelineEntries.add(
-                    new NetTimelineEntry(
-                            random.nextInt(),
-                            OffsetDateTime.now(),
-                            new Station(random.nextInt(), "ACT0R", RandomStringUtils.randomAlphanumeric(6), "the Actor"),
-                            new Station(random.nextInt(), "UP0AT3D", RandomStringUtils.randomAlphanumeric(6), "the Updated"),
-                            RandomStringUtils.randomAlphanumeric(30)
-
-                    )
+                    NetTimelineEntry.builder()
+                            .id(Long.valueOf(random.nextInt()))
+                            .net(net)
+                            .entryTime(OffsetDateTime.now())
+                            .actor(Station.builder()
+                                    .id(Long.valueOf(random.nextInt()))
+                                    .callsign("ACT0R")
+                                    .firstName(RandomStringUtils.randomAlphanumeric(6))
+                                    .lastName("the Actor")
+                                    .build())
+                            .stationUpdated(Station.builder()
+                                    .id(Long.valueOf(random.nextInt()))
+                                    .callsign("UP0AT3D")
+                                    .firstName(RandomStringUtils.randomAlphanumeric(6))
+                                    .lastName("the Updated")
+                                    .build())
+                            .remarks(RandomStringUtils.randomAlphanumeric(30))
+                            .build()
             );
         }
 
         net.setTimelineEntries(timelineEntries);
 
-        if (id == 10000)
+        if (id.equals(Long.valueOf(10000)))
             return net;
 
         return null;
