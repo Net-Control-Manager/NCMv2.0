@@ -5,6 +5,9 @@ spring:
     password: Passw0rd!
   jpa:
     open-in-view: false
+    entity-scan-packages: org.ncm.ncmv2.domain.model
+    repositories:
+      enabled: true
     hibernate:
       ddl-auto: update
       jdbc:

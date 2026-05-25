@@ -3,6 +3,7 @@ package org.ncm.ncmv2.domain.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.locationtech.jts.geom.Point;
 
 import java.time.OffsetDateTime;
 
@@ -25,8 +26,9 @@ public class Station {
     private String lastName;
 
     //TODO: Fix this datatype
-    @Column(name="lat_long")
-    private String latLong;
+    @Column(columnDefinition = "geometry(Point, 4326)", name="lat_long")
+    @org.hibernate.annotations.Generated
+    private Point latLong;
     private String city;
     private String county;
     private String district;

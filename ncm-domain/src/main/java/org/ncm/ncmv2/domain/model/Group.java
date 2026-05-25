@@ -8,7 +8,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "group")
+@Table(name = "group_org")
 @Getter
 @Setter
 @NoArgsConstructor
