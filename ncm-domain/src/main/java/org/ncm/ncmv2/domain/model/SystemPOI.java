@@ -3,6 +3,7 @@ package org.ncm.ncmv2.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.type.SqlTypes;
@@ -25,21 +26,22 @@ public class SystemPOI {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
+
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "geojson", columnDefinition = "jsonb", nullable = false)
     private Map<String, Object> geojson;
-    @JsonIgnore
-    @Column(name = "geom", columnDefinition = "geometry")
-    private Geometry geom;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "poi_type_id")
     @ToString.Exclude
     private SystemPOIType poiType;
-    @Builder.Default
-    @Column(name = "date_added", columnDefinition = "timestamptz", nullable = false)
-    private OffsetDateTime dateAdded = OffsetDateTime.now();
+
+    @CreationTimestamp
+    @Column(name = "date_added", columnDefinition = "timestamptz", nullable = false, updatable = false)
+    private OffsetDateTime dateAdded;
+
     @Column(name = "is_deleted", nullable = false)
-    private boolean deleted;
+    private boolean isDeleted = false;
 
     @Override
     public final boolean equals(Object o) {
