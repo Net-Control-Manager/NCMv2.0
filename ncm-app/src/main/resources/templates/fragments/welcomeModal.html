@@ -2,5 +2,52 @@
     <dialog id="welcomeModal" class="modal welcomeModal">
         <h2>Welcome to NCM!</h2>
         <span>Please select an option to continue.</span>
+        <hr>
+        <div class="wmRow1">
+            <div href="" id="callsignButton" class="wmHam">
+                <i class="fa-solid fa-id-card fa-3x"></i>
+                <span class="wmHead">Enter Your Callsign</span>
+                <span class="wmSubtext">Use NCM without an account</span>
+                <br>
+                <br>
+                <form id="hamCallsignForm">
+                    <input name="hamCallsign" id="hamCallsign" placeholder="CALLSIGN" style="margin-bottom: 8px;">
+                    <button type="submit" class="btn btn-dark">Submit &raquo;</button>
+                </form>
+            </div>
+            <div id="accountButton" class="wmHam">
+                <i class="fa-solid fa-user-lock fa-3x"></i>
+                <span class="wmHead">Sign Into NCM</span>
+                <span class="wmSubtext">Use your NCM Account</span>
+                <br>
+                <br>
+                <a type="button" href="/login" class="btn btn-dark">Log In &raquo;</a>
+            </div>
+        </div>
+        <hr>
+        <div class="wmRow2">
+            <div href="" id="nonHamStationButton" class="wmNonHam">
+                <div class="wmNonHamTitle">
+                    <span class="wmHead">Use NCM as a Non-Ham Station</span>
+                    <span class="wmSubtext">eg: Emergency Coordinator, Event Manager, Government Liaison</span>
+                </div>
+                <div class="nonHamAction">
+                    <span class="tooltip" id="nonHamInfoTooltip">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </span>
+                    <input name="nonHamCallsign" id="nonHamCallsign" placeholder="CALLSIGN">
+                    <a type="button" id="submitNonHamCallsign" class="btn btn-dark">&raquo;</a>
+                </div>
+            </div>
+            <div href="" class="wmNonHam">
+                <div class="wmNonHamTitle">
+                    <span class="wmHead">Browse NCM as a Guest</span>
+                    <span class="wmSubtext">Browse NCM with View-Only access</span>
+                </div>
+                <div class="nonHamCall">
+                    <a type="button" id="guestButton" class="btn btn-dark">Browse NCM &raquo;</a>
+                </div>
+            </div>
+        </div>
     </dialog>
 </div>

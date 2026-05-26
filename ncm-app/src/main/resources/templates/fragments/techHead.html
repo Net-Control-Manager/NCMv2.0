@@ -73,6 +73,10 @@
     <div th:replace="fragments/welcomeModal :: welcomeModal"></div>
 
     <script>
+        var HAS_AUTHENTICATED_COOKIE = "isWelcomed";
+        var CALLSIGN_COOKIE = "callsign";
+        var CALLSIGN_COOKIE_LENGTH = 90; //days
+
         function setCookie(name, value, days) {
             const date = new Date();
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -89,16 +93,98 @@
             return null;
         }
 
-        //TODO:  Change this to only show if user is not authenticated
-        $(document).ready(function() {
-            welcomeCookie = "welcome";
+        // Session Verification & Welcome Modal Display
+        $(document).ready(function () {
 
-            if (!getCookie(welcomeCookie) && !getCookie("callsign")) {
-                welcomeDialog = document.getElementById('welcomeModal');
-                welcomeDialog.showModal();
-                setCookie(welcomeCookie, "true", 7);
+            var welcomeModal;
+
+            // Check if user has already been through this in this browser session
+            if (getCookie(HAS_AUTHENTICATED_COOKIE)) {
+                return;
             }
-        });
+
+            console.log("1");
+
+            // Get user auth status
+            $.ajax({
+                url: "/session/check",
+                method: "GET",
+                statusCode: {
+                    200: function () {  //User IS authed, so we need to escape this and not show the welcome modal
+                        return;
+                    },
+                    401: function () {  //User is NOT authed, so we need to proceed with session setup
+
+                        console.log("2");
+
+                        if (getCookie(CALLSIGN_COOKIE)) {
+
+                            console.log("2a");
+
+                            // User has a callsign already in their browser, so just set up the session.
+                            var callsignJSON = {callsign: getCookie(CALLSIGN_COOKIE)}
+
+                            $.ajax({
+                                url: "/session/setCallsign",
+                                method: "POST",
+                                contentType: "application/json",
+                                data: JSON.stringify(callsignJSON),
+                                success: function (response) {
+                                    console.log("Success:", response);
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error("Error:", error);
+                                }
+                            });
+
+                        } else {
+
+                            console.log("2b");
+
+                            // User does NOT have a callsign already, so show them the welcome modal.
+                            welcomeModal = document.getElementById('welcomeModal');
+                            welcomeModal.showModal();
+                        }
+                    }
+                }
+            })
+
+        })
+
+        // Process Ham Callsign from Welcome Modal
+        $(document).ready(function () {
+            $("#hamCallsignForm").on("submit", function (e) {
+                e.preventDefault();
+
+                var callsign = $("#hamCallsign").val().trim();
+                if (!callsign) {
+                    alert("Please enter a callsign.");
+                    return;
+                }
+
+                callsign = callsign.toUpperCase();
+                console.log(callsign);
+
+                var callsignJSON = {callsign: callsign};
+
+                $.ajax({
+                    url: "/session/create",
+                    method: "POST",
+                    headers: {
+                        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
+                    },
+                    contentType: "application/json",
+                    data: JSON.stringify(callsignJSON),
+                    success: function (response) {
+                        console.log("Callsign stored in session:", callsign);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error setting callsign:", error);
+                        // Optional: handle error display
+                    }
+                });
+            });
+        })
 
 
     </script>
