@@ -54,6 +54,7 @@
                 <i class="fa fa-bars"></i>
             </a>
             <a href="/account" class="icon">
+                <span class="hiUser">Hi, <span th:text="${session.callsign}">User</span>!</span>
                 <i class="fa fa-circle-user"></i>
             </a>
         </div>
@@ -67,6 +68,19 @@
             } else {
                 x.className = "navbar";
             }
+        }
+    </script>
+
+    <script>
+        function showToast(message, color) {
+            var toast = $("#toast");
+
+            toast.removeClass("toast-*");
+            toast.addClass("toast-" + color);
+            $("#toast-body").text(message);
+
+            toast.fadeIn(1000);
+            toast.delay(5000).fadeOut('slow');
         }
     </script>
 
@@ -100,7 +114,7 @@
 
             // Check if user has already been through this in this browser session
             if (getCookie(HAS_AUTHENTICATED_COOKIE)) {
-                return;
+                // return;
             }
 
             console.log("1");
@@ -111,7 +125,7 @@
                 method: "GET",
                 statusCode: {
                     200: function () {  //User IS authed, so we need to escape this and not show the welcome modal
-                        return;
+                        showToast("Thank you for logging in!", "sysnote");
                     },
                     401: function () {  //User is NOT authed, so we need to proceed with session setup
 
@@ -131,6 +145,8 @@
                                 data: JSON.stringify(callsignJSON),
                                 success: function (response) {
                                     console.log("Success:", response);
+                                    showToast("Logged in as " + getCookie(CALLSIGN_COOKIE), "sysnote");
+
                                 },
                                 error: function (xhr, status, error) {
                                     console.error("Error:", error);
@@ -151,7 +167,6 @@
 
         })
 
-        // Process Ham Callsign from Welcome Modal
         $(document).ready(function () {
             $("#hamCallsignForm").on("submit", function (e) {
                 e.preventDefault();
@@ -176,16 +191,28 @@
                     contentType: "application/json",
                     data: JSON.stringify(callsignJSON),
                     success: function (response) {
-                        console.log("Callsign stored in session:", callsign);
+                        setCookie(CALLSIGN_COOKIE,callsign,365);
+                        showToast("Logged in as " + getCookie(CALLSIGN_COOKIE), "success");
+
+                        welcomeModal = document.getElementById('welcomeModal');
+                        welcomeModal.close();
+
+
                     },
                     error: function (xhr, status, error) {
                         console.error("Error setting callsign:", error);
-                        // Optional: handle error display
+                        showToast("Error logging in.  Please try again.", "error");
                     }
                 });
             });
         })
 
-
     </script>
+
+    <div id="toast" class="toast toast-info" role="alert" aria-live="assertive" aria-atomic="true">
+            <div id="toast-body">
+                Hello, world! This is a toast message.
+            </div>
+    </div>
+
 </div>

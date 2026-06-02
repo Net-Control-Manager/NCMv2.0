@@ -1,16 +1,9 @@
 package org.ncm.ncmv2.api.controller;
 
-import org.ncm.ncmv2.api.dto.CreateNetRequest;
 //import org.ncm.ncmv2.domain.model.dao.NetDao;
 //import org.ncm.ncmv2.app.service.NetService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.*;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import jakarta.validation.Valid;
-
-import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1")

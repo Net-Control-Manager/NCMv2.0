@@ -7,17 +7,12 @@ import org.locationtech.jts.geom.Point;
 
 import java.time.OffsetDateTime;
 
-@Entity
-@Table(name = "station")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Station {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String callsign;
 
     @Column(name="first_name")
@@ -25,7 +20,6 @@ public class Station {
     @Column(name="last_name")
     private String lastName;
 
-    //TODO: Fix this datatype
     @Column(columnDefinition = "geometry(Point, 4326)", name="lat_long")
     @org.hibernate.annotations.Generated
     private Point latLong;
@@ -46,5 +40,4 @@ public class Station {
     @CreationTimestamp
     @Column(name="date_created", nullable = false, updatable = false, columnDefinition = "timestamptz")
     private OffsetDateTime dateCreated;
-
 }

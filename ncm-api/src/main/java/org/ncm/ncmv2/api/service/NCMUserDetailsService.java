@@ -1,4 +1,4 @@
-package org.ncm.ncmv2.service;
+package org.ncm.ncmv2.api.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

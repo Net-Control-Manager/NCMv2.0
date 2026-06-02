@@ -28,11 +28,11 @@ public class NetTimelineEntry {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "actor_id", nullable = false)
-    private Station actor;
+    private FCCStation actor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stationUpdated_Id")
-    private Station stationUpdated;
+    private FCCStation stationUpdated;
 
     @Column(nullable = false)
     private String remarks;

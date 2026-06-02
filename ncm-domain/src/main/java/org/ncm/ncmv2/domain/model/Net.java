@@ -41,7 +41,7 @@ public class Net {
     private OffsetDateTime endTime;
 
     @Column(name="is_prebuilt")
-    private boolean isPreBuilt = false;
+    private boolean preBuilt = false;
 
     @Column(name="prebuilt_time", columnDefinition = "timestamptz")
     private OffsetDateTime preBuiltTime;
@@ -51,16 +51,22 @@ public class Net {
     private Net subNetParent;
 
     @Column(name="is_public")
-    private boolean isPublic;
+    private boolean publicNet;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User owner;
+    private FCCStation owner;
 
+    @Column(name="frequency")
+    private String frequency;
+
+    @JoinColumn(name="group_org")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Group group;
 
     // Unowned nets should default to public, but
     // owned nets should default to private.
     @PrePersist
     public void prePersist() {
-        isPublic = this.owner == null;
+        publicNet = this.owner == null;
     }
 }

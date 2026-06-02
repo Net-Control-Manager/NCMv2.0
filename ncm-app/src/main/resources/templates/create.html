@@ -4,9 +4,137 @@
 <body>
 <div th:replace="fragments/techHead :: siteHeader"></div>
 
-<div class="container">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.bootstrap5.min.css">
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+
+<div class="container page">
     <h1>Create a Net</h1>
+
+    <form action="#" th:action="@{/create}" th:object="${netDto}" method="post">
+        <label for="owner">Net Owner</label>
+        <input type="text" id="owner" th:object="${netDto.owner}" th:value="*{callsign}" disabled>
+        <br><br>
+
+        <label for="name">Net Name</label>
+        <input type="text" id="name" th:field="*{name}">
+        <span class="helpText">Leave this blank to auto-generate a name</span>
+        <br><br>
+
+        <label for="public">Make Net Private?</label>
+        <select id="public" th:field="*{publicNet}">
+            <option value="1" selected>Public</option>
+            <option value="0">Private</option>
+        </select>
+        <span class="helpText">Making the net private will prevent any other user from seeing the net.</span>
+        <br><br>
+
+        <label for="frequency">Primary Frequency</label>
+        <input type="text" id="frequency" th:field="*{frequency}">
+        <br><br>
+
+        <label for="netType">Net Type</label>
+        <select th:field="*{netType}" id="netType">
+            <option value="">-- Select a Net Type --</option>
+            <option th:each="netType : ${netTypes}"
+                    th:value="${netType.id}"
+                    th:text="${netType.callsign}">
+            </option>
+        </select>
+        <span class="helpText"></span>
+        <br><br>
+
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
 </div>
+
+<dialog class="modal fade" id="createNetTypeModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create New Net Type</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="newCallsign" class="form-label">Callsign</label>
+                    <input type="text" class="form-control" id="newCallsign" />
+                </div>
+                <!-- add other NetType fields here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="saveNetTypeBtn">Save</button>
+            </div>
+        </div>
+    </div>
+</dialog>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const tomSelect = new TomSelect("#netTypeSelect", {
+            sortField: { field: "text", direction: "asc" },
+            placeholder: "Search by callsign...",
+
+            // This is the "+ Create New Net Type" option
+            onInitialize: function () {
+                addCreateOption(this);
+            },
+            onType: function () {
+                // Re-add after filtering clears it
+                addCreateOption(this);
+            }
+        });
+
+        function addCreateOption(ts) {
+            // Remove existing to avoid duplicates
+            ts.removeOption("__create__");
+            ts.addOption({ value: "__create__", text: "+ Create New Net Type" });
+            ts.refreshOptions(false);
+        }
+
+        // Intercept selection of the "create" option
+        tomSelect.on("item_add", function (value) {
+            if (value === "__create__") {
+                tomSelect.removeItem("__create__", true);
+                tomSelect.blur();
+                const modal = new bootstrap.Modal(document.getElementById("createNetTypeModal"));
+                modal.show();
+            }
+        });
+
+        // Save button in modal
+        document.getElementById("saveNetTypeBtn").addEventListener("click", function () {
+            const callsign = document.getElementById("newCallsign").value.trim();
+            if (!callsign) return;
+
+            fetch("/api/net-types", {                    // <-- your endpoint here
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ callsign: callsign })
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error("Save failed");
+                    return res.json();                       // expects { id: 123, callsign: "W1AW" }
+                })
+                .then(newNetType => {
+                    // Add to Tom Select and auto-select it
+                    tomSelect.addOption({ value: String(newNetType.id), text: newNetType.callsign });
+                    tomSelect.setValue(String(newNetType.id));
+
+                    // Re-pin the create option at the bottom
+                    addCreateOption(tomSelect);
+
+                    // Close modal and reset
+                    bootstrap.Modal.getInstance(document.getElementById("createNetTypeModal")).hide();
+                    document.getElementById("newCallsign").value = "";
+                })
+                .catch(err => {
+                    alert("Error saving net type: " + err.message);
+                });
+        });
+    });
+</script>
 
 </body>
 </html>

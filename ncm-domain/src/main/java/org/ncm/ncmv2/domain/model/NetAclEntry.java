@@ -21,7 +21,7 @@ public class NetAclEntry {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
-    private Station station;
+    private FCCStation station;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

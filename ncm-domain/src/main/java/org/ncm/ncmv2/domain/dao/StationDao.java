@@ -1,21 +1,26 @@
 package org.ncm.ncmv2.domain.dao;
 
 import org.ncm.ncmv2.domain.model.LatLong;
+import org.ncm.ncmv2.domain.model.FCCStation;
 import org.ncm.ncmv2.domain.model.Station;
+import org.ncm.ncmv2.domain.model.TransientStation;
 
 public interface StationDao {
 
+    // TODO:  NEED TO DEVELOP LOGIC TO GRACEFULLY HANDLE TRANSIENT STATION EXPIRATION & SUBSEQUENT CALLSIGN REUSE
 
-    Station getStationById(Long id);
-    Station getStationByCallsign(String callsign);
+    TransientStation createTransientStation(String callsign);
 
-    Station updateStationFirstName(Long id, String firstName);
-    Station updateStationLastName(Long id, String lastName);
-    Station updateStationLatLong(Long id, LatLong latLong);
-    Station updateStationW3W(Long id, String w3w);
-    Station updateStationEmail(Long id, String email);
-    Station updateStationPhone(Long id, String phone);
-    Station updateStationCredentials(Long id, String credentials);
+    <T extends Station> T getStationById(Long id);
+    <T extends Station> T getStationByCallsign(String callsign);
+
+    FCCStation updateStationFirstName(Long id, String firstName);
+    FCCStation updateStationLastName(Long id, String lastName);
+    FCCStation updateStationLatLong(Long id, LatLong latLong);
+    FCCStation updateStationW3W(Long id, String w3w);
+    FCCStation updateStationEmail(Long id, String email);
+    FCCStation updateStationPhone(Long id, String phone);
+    FCCStation updateStationCredentials(Long id, String credentials);
 
     /**
      * This method permanently deletes a station from the database.  The station's ID and Callsign must

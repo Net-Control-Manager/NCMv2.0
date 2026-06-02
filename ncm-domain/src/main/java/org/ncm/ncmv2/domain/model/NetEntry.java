@@ -11,7 +11,7 @@ import java.time.OffsetDateTime;
 @Table(name = "net_entry")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -30,7 +30,7 @@ public class NetEntry {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "station_id")
     @ToString.Exclude
-    private Station station;
+    private FCCStation station;
 
     @Column(name = "check_in_time", columnDefinition = "timestamptz", nullable = false)
     private OffsetDateTime checkInTime;

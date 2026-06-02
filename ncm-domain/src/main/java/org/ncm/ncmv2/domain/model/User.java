@@ -27,7 +27,7 @@ public class User {
     private String password;
 
     @OneToOne
-    private Station station;
+    private FCCStation station;
 
     @Column(name="dark_mode")
     private boolean darkMode = false;

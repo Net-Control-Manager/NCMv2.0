@@ -1,12 +1,13 @@
 package org.ncm.ncmv2.api.controller;
 
 import jakarta.servlet.http.HttpSession;
+import org.ncm.ncmv2.domain.dao.StationDao;
+import org.ncm.ncmv2.domain.model.FCCStation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -21,6 +22,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/session")
 public class SessionController {
+
+    @Autowired
+    StationDao stationDao;
 
     /**
      * Checks if there is currently a valid Spring Security session.
@@ -55,8 +59,27 @@ public class SessionController {
     public ResponseEntity<Void> create(@RequestBody Map<String, String> body, HttpSession session) {
         System.out.println("================== METHOD HIT =====================");
 
+
+        session.setAttribute("test", "000");
+
+
         String callsign = body.get("callsign");
         session.setAttribute("callsign", callsign);
+
+        FCCStation validatedStation = stationDao.getStationByCallsign(callsign);
+
+        System.out.println("====================================");
+        System.out.println(validatedStation);
+        System.out.println("====================================");
+
+        if (validatedStation == null) {
+
+            session.setAttribute("station", stationDao.createTransientStation(callsign));
+
+        } else {
+            session.setAttribute("station", validatedStation);
+            session.setAttribute("test", validatedStation.getFirstName());
+        }
         return ResponseEntity.ok().build();
     }
 
